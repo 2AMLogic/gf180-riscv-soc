@@ -7,7 +7,7 @@ macro and a minimal peripheral set — designed by AI agents driving
 [klayout-tools](https://github.com/2AMLogic/klayout-tools) and the
 open-source cocotb + Icarus, Yosys and OpenROAD flow.
 
-**Status: just opened, specification phase.** Nothing is designed yet.
+**Status: specification ratified (`spec/soc.md`, 2026-10-17).** Nothing is designed yet.
 
 **Built agent-native.** Every specification, decision record, testbench, and
 line of documentation here is produced by AI agents working from a ratified
@@ -52,26 +52,30 @@ single-port 1RW, one clock, pin interface matching the gf180mcu foundry SRAM
 (`A`, `CEN`, `CLK`, `D`, `Q`, `GWEN`, `WEN`), a single 3.3 V supply. This repo
 specifies how it uses that interface; it does not redesign it.
 
-## Target specification (DRAFT — engineering to ratify, see issue #1)
+## Target specification (ratified in [`spec/soc.md`](spec/soc.md), issue #3)
 
 Port parity with the sky130 origin where the PDK allows; departures go
-through decision records.
+through decision records. Core, interconnect and peripheral rows mirror the
+origin's README and are not ratified at the origin yet (tracked in
+`spec/soc.md` Part A); the rest are ratified here.
 
 | Parameter | Target | Fallback | Stretch |
 |---|---|---|---|
 | Core | RV32IMC, same core and configuration as `sky130-riscv-soc` | RV32EC | + debug module over JTAG |
 | Interconnect | OBI crossbar, as the origin | single shared OBI bus | — |
-| SRAM | 4 KB instruction + 4 KB data (`gf180-sram` instances) | 2 KB + 2 KB | 8 KB + 8 KB |
+| PDK | `gf180mcuD`, open_pdks `f6eeac7` | — | — |
+| Standard cells | `gf180mcu_fd_sc_mcu7t5v0` (7-track) | `gf180mcu_fd_sc_mcu9t5v0` | — |
+| SRAM | 4 KB instruction + 4 KB data = 8 × `gf180-sram` 256 x 32 | 2 KB + 2 KB = 4 × | 8 KB + 8 KB = 16 × |
 | Peripherals | boot ROM, UART, GPIO, timer | boot ROM, UART, GPIO | SPI flash execute-in-place |
 | Core supply | 3.3 V, shared with `gf180-sram` | — | — |
 | Signoff Fmax (post-route STA, slow corner) | 25 MHz | 12.5 MHz | 50 MHz |
-| Signoff | DRC + LVS clean, STA closed at every ratified corner | — | — |
+| Signoff | DRC + LVS clean, STA closed at every corner in `spec/soc.md` (macro Liberty not yet available, see `spec/macro-views-interim-decision.md`) | — | — |
 
 Maturity ladder: spec ratified → origin's SoC RTL and tests passing on this
 repo's netlist → synthesized with timing met at the target → placed and
 routed with the `gf180-sram` macros, DRC/LVS-clean → post-route
 multi-corner STA closed → shuttle seat → measured silicon (bench Fmax).
-**Current position: pre-spec.**
+**Current position: spec ratified; no RTL, synthesis or timing result yet.**
 
 ## Repo layout
 
