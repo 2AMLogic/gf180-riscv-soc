@@ -1,0 +1,63 @@
+name: klt signoff
+
+# The T1 tier state of this block is graded, not hand-read. The committed
+# verdict of record (manifests/gf180-riscv-soc.signoff.json) must still be
+# reproduced by `klt signoff --check` against the block manifest. The
+# klayout-tools version is pinned in one place: .github/klt-version.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  signoff:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Validate committed JSON parses
+        run: |
+          python3 -I - <<'PY'
+          import json, pathlib, sys
+          bad = 0
+          files = sorted(pathlib.Path("manifests").rglob("*.json"))
+          for p in files:
+              try:
+                  json.loads(p.read_text())
+              except ValueError as e:
+                  print(f"::error file={p}::not valid JSON: {e}")
+                  bad += 1
+          print(f"checked {len(files)} JSON file(s), {bad} invalid")
+          sys.exit(1 if bad else 0)
+          PY
+
+      - name: Install pinned klt
+        run: pip install "klayout-tools==$(cat .github/klt-version)"
+
+      - name: Verify the committed verdict of record
+        run: |
+          set -uo pipefail
+          rc=0
+          klt signoff --manifest manifests/gf180-riscv-soc.json \
+                      --check manifests/gf180-riscv-soc.signoff.json \
+                      --format json > "$RUNNER_TEMP/check.json" || rc=$?
+          cat "$RUNNER_TEMP/check.json"
+          # --check: exit 0 = the committed report still reproduces,
+          # 3 = drifted. Anything else is a tool/manifest error.
+          if [ "$rc" -ne 0 ]; then
+            echo "::error::klt signoff --check exited $rc: the committed verdict of record is stale or the manifest is broken."
+            echo "Regenerate and commit it in this same PR (exit 3 is expected when items are unmet):"
+            echo "  klt signoff --manifest manifests/gf180-riscv-soc.json --format json > manifests/gf180-riscv-soc.signoff.json"
+            exit 1
+          fi
+          echo "Committed verdict of record reproduces."
