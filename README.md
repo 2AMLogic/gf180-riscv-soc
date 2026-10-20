@@ -77,6 +77,23 @@ routed with the `gf180-sram` macros, DRC/LVS-clean → post-route
 multi-corner STA closed → shuttle seat → measured silicon (bench Fmax).
 **Current position: spec ratified; no RTL, synthesis or timing result yet.**
 
+## T1 evidence
+
+This block's T1 state is graded by `klt signoff`, not hand-read. The block
+manifest is [`manifests/gf180-riscv-soc.json`](manifests/gf180-riscv-soc.json)
+and the committed verdict of record is
+[`manifests/gf180-riscv-soc.signoff.json`](manifests/gf180-riscv-soc.signoff.json);
+CI fails if the record no longer reproduces. The `klayout-tools` version is
+pinned in [`.github/klt-version`](.github/klt-version). The manifest has no
+evidence yet, so every item is `unmet` and the tier is `null`. To regenerate
+the record (exit 3 is expected while items are unmet):
+
+```
+uvx --from "klayout-tools==$(cat .github/klt-version)" klt signoff \
+  --manifest manifests/gf180-riscv-soc.json --format json \
+  > manifests/gf180-riscv-soc.signoff.json
+```
+
 ## Repo layout
 
 ```
