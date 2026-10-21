@@ -3,6 +3,10 @@
 Chronological record of merged PRs and closed issues, maintained by the Guide
 triage role. Newest first.
 
+### 2026-10-21
+
+- **PR #9**: Bump Repo Skills 0.24.3 -> 0.24.7
+
 ### 2026-10-20
 
 - **PR #7**: ci: add klt signoff gate and block manifest verdict of record
