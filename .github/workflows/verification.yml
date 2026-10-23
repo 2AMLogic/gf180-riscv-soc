@@ -1,0 +1,59 @@
+name: verification
+
+# Stamped-file hash check, record lint, RTL lint and the cocotb smoke.
+# iverilog comes from the distro and may not be the pinned version
+# (spec/stamped-harness-decision.md). No path filters.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  stamped:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Stamped files match reuse.lock.json
+        run: |
+          python3 -I - <<'PY'
+          import hashlib, json, sys
+          bad = 0
+          for e in json.load(open("reuse.lock.json"))["stamped"]:
+              got = hashlib.sha256(open(e["path"], "rb").read()).hexdigest()
+              if got != e["sha256"]:
+                  print("MISMATCH", e["path"]); bad = 1
+          sys.exit(bad)
+          PY
+
+  lint:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Verilator
+        run: sudo apt-get update && sudo apt-get install -y verilator
+      - name: Record linter and fixture test
+        run: |
+          python3 -I verification/tools/lint_records.py
+          python3 -I verification/tools/tests/test_lint_records.py
+      - name: RTL lint
+        run: verification/tools/lint_rtl.sh
+
+  smoke:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Icarus Verilog
+        run: sudo apt-get update && sudo apt-get install -y iverilog
+      - name: Install cocotb at the pinned version
+        run: |
+          pin="$(sed -n 's/^PIN_COCOTB="\([^"]*\)".*/\1/p' scripts/setup-env.sh)"
+          test -n "$pin"
+          python3 -m venv .venv
+          .venv/bin/pip install "cocotb==${pin}"
+      - name: cocotb smoke
+        run: |
+          . .venv/bin/activate
+          make -C verification smoke
