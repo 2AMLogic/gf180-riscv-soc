@@ -55,14 +55,14 @@ specifies how it uses that interface; it does not redesign it.
 ## Target specification (ratified in [`spec/soc.md`](spec/soc.md), issue #3)
 
 Port parity with the sky130 origin where the PDK allows; departures go
-through decision records. Core, interconnect and peripheral rows mirror the
-origin's README and are not ratified at the origin yet (tracked in
-`spec/soc.md` Part A); the rest are ratified here.
+through decision records. Core, interconnect and peripheral rows follow the
+origin's ratified `spec/soc.md` (rows 1-5 and 9, pinned in
+`reuse.lock.json`; see `spec/soc.md` Part A); the rest are ratified here.
 
 | Parameter | Target | Fallback | Stretch |
 |---|---|---|---|
-| Core | RV32IMC, same core and configuration as `sky130-riscv-soc` | RV32EC | + debug module over JTAG |
-| Interconnect | OBI crossbar, as the origin | single shared OBI bus | — |
+| Core | CVE2, RV32IMC, same core and configuration as `sky130-riscv-soc` (origin rows 1-2) | RV32EC | + debug module over JTAG |
+| Interconnect | OBI v1.4 crossbar, 2 managers x 4 subordinates, as the origin (row 5) | single shared OBI bus | — |
 | PDK | `gf180mcuD`, open_pdks `f6eeac7` | — | — |
 | Standard cells | `gf180mcu_fd_sc_mcu7t5v0` (7-track) | `gf180mcu_fd_sc_mcu9t5v0` | — |
 | SRAM | 4 KB instruction + 4 KB data = 8 × `gf180-sram` 256 x 32 | 2 KB + 2 KB = 4 × | 8 KB + 8 KB = 16 × |

@@ -6,9 +6,9 @@
       "name": "sky130-riscv-soc",
       "repo": "2AMLogic/sky130-riscv-soc",
       "kind": "ported_from",
-      "commit": "f2587409c9cbc504c01c9fe3fa432fc34e49a3bb",
+      "commit": "0bd1c151156088072b591d38800feac1da0ae2cc",
       "ref": "main",
-      "pinned_on": "2026-10-17"
+      "pinned_on": "2026-10-23"
     },
     {
       "name": "gf180-sram",
