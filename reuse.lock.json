@@ -6,9 +6,9 @@
       "name": "sky130-riscv-soc",
       "repo": "2AMLogic/sky130-riscv-soc",
       "kind": "ported_from",
-      "commit": "f2587409c9cbc504c01c9fe3fa432fc34e49a3bb",
+      "commit": "0bd1c151156088072b591d38800feac1da0ae2cc",
       "ref": "main",
-      "pinned_on": "2026-10-17"
+      "pinned_on": "2026-10-23"
     },
     {
       "name": "gf180-sram",
@@ -19,5 +19,76 @@
       "pinned_on": "2026-10-17"
     }
   ],
-  "stamped": []
+  "stamped": [
+    {
+      "path": "verification/Makefile",
+      "origin_repo": "2AMLogic/sky130-riscv-soc",
+      "origin_path": "verification/Makefile",
+      "origin_commit": "0bd1c151156088072b591d38800feac1da0ae2cc",
+      "sha256": "736dea4cab89883f4476ce76816878bb919bbfa9a410069360fe39262d839252"
+    },
+    {
+      "path": "verification/cocotb.mk",
+      "origin_repo": "2AMLogic/sky130-riscv-soc",
+      "origin_path": "verification/cocotb.mk",
+      "origin_commit": "0bd1c151156088072b591d38800feac1da0ae2cc",
+      "sha256": "bd111ae8dd2d7f62f9c162a9dbf214ab8447946c6103438b5cf85fd2e910e3c3"
+    },
+    {
+      "path": "verification/tests/smoke/dut.v",
+      "origin_repo": "2AMLogic/sky130-riscv-soc",
+      "origin_path": "verification/tests/smoke/dut.v",
+      "origin_commit": "0bd1c151156088072b591d38800feac1da0ae2cc",
+      "sha256": "bea2789c115276700ef671989e03158be3162cc1fdc91ff814233f1a1756842d"
+    },
+    {
+      "path": "verification/tests/smoke/test_smoke.py",
+      "origin_repo": "2AMLogic/sky130-riscv-soc",
+      "origin_path": "verification/tests/smoke/test_smoke.py",
+      "origin_commit": "0bd1c151156088072b591d38800feac1da0ae2cc",
+      "sha256": "3d0f191429b322199806d2e0c52511717f317f8ccc9a98946110ca9a322ec5ad"
+    },
+    {
+      "path": "verification/tools/lint_records.py",
+      "origin_repo": "2AMLogic/sky130-riscv-soc",
+      "origin_path": "verification/tools/lint_records.py",
+      "origin_commit": "0bd1c151156088072b591d38800feac1da0ae2cc",
+      "sha256": "2c9f425f2230deb215d2729d169b1ff269e80ad5a8d880c605aa3021570c0cdb"
+    },
+    {
+      "path": "verification/tools/lint_rtl.sh",
+      "origin_repo": "2AMLogic/sky130-riscv-soc",
+      "origin_path": "verification/tools/lint_rtl.sh",
+      "origin_commit": "0bd1c151156088072b591d38800feac1da0ae2cc",
+      "sha256": "f1a2f8ec29fdc2468ed905f04d741d87db40baa0db76062cd584f08b15c312e1"
+    },
+    {
+      "path": "verification/tools/tests/test_lint_records.py",
+      "origin_repo": "2AMLogic/sky130-riscv-soc",
+      "origin_path": "verification/tools/tests/test_lint_records.py",
+      "origin_commit": "0bd1c151156088072b591d38800feac1da0ae2cc",
+      "sha256": "a05817867aba7a8053b095262adeeb8fe3f88f81be2b7972c49e1c0b14ca9e08"
+    },
+    {
+      "path": "verification/tools/tests/good/lint-fixture/20261018T000000Z-0123456789ab/provenance.json",
+      "origin_repo": "2AMLogic/sky130-riscv-soc",
+      "origin_path": "verification/tools/tests/good/lint-fixture/20261018T000000Z-0123456789ab/provenance.json",
+      "origin_commit": "0bd1c151156088072b591d38800feac1da0ae2cc",
+      "sha256": "5af6b5896181c5f2e3f7a354f2c230918dbf7f866ed7a93650577ab629b1e603"
+    },
+    {
+      "path": "verification/tools/tests/bad/missing-key/20261018T000000Z-0123456789ab/provenance.json",
+      "origin_repo": "2AMLogic/sky130-riscv-soc",
+      "origin_path": "verification/tools/tests/bad/missing-key/20261018T000000Z-0123456789ab/provenance.json",
+      "origin_commit": "0bd1c151156088072b591d38800feac1da0ae2cc",
+      "sha256": "5ab6b6dc93afb7eb19f5b732b138ca2bf9d22d1605e8518e183c55e164560b2a"
+    },
+    {
+      "path": "verification/tools/tests/bad/bad-name/not-a-timestamp/.keep",
+      "origin_repo": "2AMLogic/sky130-riscv-soc",
+      "origin_path": "verification/tools/tests/bad/bad-name/not-a-timestamp/.keep",
+      "origin_commit": "0bd1c151156088072b591d38800feac1da0ae2cc",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
 }
