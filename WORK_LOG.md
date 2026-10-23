@@ -3,6 +3,13 @@
 Chronological record of merged PRs and closed issues, maintained by the Guide
 triage role. Newest first.
 
+### 2026-10-23
+
+- **PR #15**: docs(spec): fill Part A from ratified origin spec and re-pin origin
+- **PR #14**: feat: stamp cocotb harness and record linter, add gf180 env check and CI
+- **Issue #11** (closed): Fill spec Part A from the now-ratified sky130-riscv-soc spec and re-pin the origin
+- **Issue #12** (closed): Adopt sky130-riscv-soc's cocotb harness and record linter by stamped reference (T1 item 9)
+
 ### 2026-10-21
 
 - **PR #9**: Bump Repo Skills 0.24.3 -> 0.24.7
