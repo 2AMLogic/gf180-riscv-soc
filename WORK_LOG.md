@@ -5,6 +5,8 @@ triage role. Newest first.
 
 ### 2026-10-23
 
+- **PR #18**: fix: run the real verification checks from the package.json gate scripts
+- **Issue #16** (closed): Replace package.json placeholder check scripts with the real verification checks
 - **PR #15**: docs(spec): fill Part A from ratified origin spec and re-pin origin
 - **PR #14**: feat: stamp cocotb harness and record linter, add gf180 env check and CI
 - **Issue #11** (closed): Fill spec Part A from the now-ratified sky130-riscv-soc spec and re-pin the origin
