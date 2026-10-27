@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "kind": "t1-attestation-inventory",
+  "t1_item": 10,
+  "description": "README, LICENSE and CI exist, and the PDK-free CI gates still pass. The checks mirror .github/workflows/verification.yml; lint_rtl.sh needs Verilator and is local-only.",
+  "hygiene": [
+    "README.md",
+    "LICENSE",
+    ".github/workflows/verification.yml",
+    ".github/workflows/signoff.yml"
+  ],
+  "checks": [
+    {
+      "name": "stamped-file-hashes",
+      "argv": [
+        "python3",
+        "-I",
+        "-c",
+        "import hashlib, json, sys\nbad = 0\nfor e in json.load(open('reuse.lock.json'))['stamped']:\n    if hashlib.sha256(open(e['path'], 'rb').read()).hexdigest() != e['sha256']:\n        print('MISMATCH', e['path']); bad = 1\nsys.exit(bad)"
+      ]
+    },
+    {
+      "name": "lint-records",
+      "argv": [
+        "python3",
+        "-I",
+        "verification/tools/lint_records.py"
+      ]
+    },
+    {
+      "name": "lint-records-tests",
+      "argv": [
+        "python3",
+        "-I",
+        "verification/tools/tests/test_lint_records.py"
+      ]
+    },
+    {
+      "name": "lint-rtl",
+      "argv": [
+        "verification/tools/lint_rtl.sh"
+      ],
+      "local_only": true
+    }
+  ]
+}
