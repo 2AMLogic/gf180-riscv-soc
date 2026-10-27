@@ -107,3 +107,7 @@ results.xml
 
 # Repo Skills machine-local install metadata (absolute source path + timestamp)
 .claude/skills/repo/.install-local.json
+
+# fetched CVE2 sources and sv2v output (scripts/fetch-cve2.sh, scripts/convert-cve2.sh);
+# generated, never committed
+build/
