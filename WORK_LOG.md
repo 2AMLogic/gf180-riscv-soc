@@ -3,6 +3,11 @@
 Chronological record of merged PRs and closed issues, maintained by the Guide
 triage role. Newest first.
 
+### 2026-10-27
+
+- **PR #31**: feat(signoff): record T1 item 6 as not applicable for the digital block
+- **Issue #28** (closed): T1 item 6 (statistical rows): hash-bound not-applicable statement for the ratified spec
+
 ### 2026-10-23
 
 - **PR #18**: fix: run the real verification checks from the package.json gate scripts

@@ -14,7 +14,7 @@ _None._
 
 `loom:very-important` (one counts per workspace); every stage takes these first.
 
-_None._
+- **#32**: T1 item 1 (a/4): decision records for rows 8 and 8a, and the origin fix issue
 
 ## Important
 
@@ -26,19 +26,19 @@ _None._
 
 Human-approved issues ready for implementation (`loom:issue`).
 
-_None._
+- **#32**: T1 item 1 (a/4): decision records for rows 8 and 8a, and the origin fix issue
 
 ## In Progress
 
 Issues currently being built (`loom:building`).
 
-_None._
+- **#21**: T1 item 10 (repo hygiene): repo-hygiene inventory and klt signoff --attest 10 envelope
 
 ## PRs Awaiting Review
 
 PRs waiting on Judge (`loom:review-requested`).
 
-_None._
+- **#36**: feat(signoff): attest T1 item 10 repo hygiene
 
 ## Approved (Awaiting Merge)
 
@@ -51,6 +51,8 @@ _None._
 Issues carrying `loom:curated`.
 
 - **#4**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
+- **#21**: T1 item 10 (repo hygiene): repo-hygiene inventory and klt signoff --attest 10 envelope *(curated)*
+- **#32**: T1 item 1 (a/4): decision records for rows 8 and 8a, and the origin fix issue *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -67,13 +69,13 @@ _None._
 | Bucket | Count |
 |------|-------|
 | Operator merge-risk holds | 0 |
-| Very important | 0 |
+| Very important | 1 |
 | Important | 0 |
-| Ready (`loom:issue`) | 0 |
-| In Progress (`loom:building`) | 0 |
-| PRs awaiting review | 0 |
+| Ready (`loom:issue`) | 1 |
+| In Progress (`loom:building`) | 1 |
+| PRs awaiting review | 1 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 1 |
+| Curated | 3 |
 | Architect / Hermit proposals | 0 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->
