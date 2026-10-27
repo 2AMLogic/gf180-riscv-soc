@@ -20,7 +20,7 @@ Sources read for this spec (pinned in [`reuse.lock.json`](../reuse.lock.json)):
 
 | Repo | Role | Commit read |
 |---|---|---|
-| `2AMLogic/sky130-riscv-soc` | origin, `ported_from` | `0bd1c151156088072b591d38800feac1da0ae2cc` (main, 2026-10-23); re-pinned from `f2587409c9cbc504c01c9fe3fa432fc34e49a3bb` (2026-10-17), which predates the origin's ratification |
+| `2AMLogic/sky130-riscv-soc` | origin, `ported_from` | `700b74596f52eccf867f91b30f09d963f4cb9de7` (main, 2026-10-27); re-pinned from `0bd1c151156088072b591d38800feac1da0ae2cc` (2026-10-23) to reach the integration RTL and the row-8a fix (`befb9d8`, an ancestor of the pin). The Part A rows below were read at `0bd1c151…` |
 | `2AMLogic/gf180-sram` | `consumes` | `d0bacc0fceb6e9400e54e3efe15ec1630711faa9` (main, 2026-10-17) |
 
 ## Part A — Inherited from `sky130-riscv-soc` (not re-decided here)
@@ -49,10 +49,12 @@ Filling in Part A changes no Part B value.
 | Peripherals | row 9; § Peripherals (boot ROM, UART, 8-bit GPIO, machine timer; SPI XIP stretch) | `0bd1c151…` | Ratified at origin |
 | Clock and reset | row 10; § Clock and reset (one clock `clk_i`, async-assert / sync-deassert reset) | `0bd1c151…` | Ratified at origin |
 | Firmware and verification plan (architectural tests, firmware tests) | § Verification plan (`riscv-arch-test` pinned at `9929db1c…`, cocotb suites, golden UART transcripts) | `0bd1c151…` | Ratified at origin; the Timing and Physical rows of that plan use origin corners, see below |
-| Integration RTL | § "PDK-independent seam", left column (SoC top, crossbar, peripherals, boot ROM source); `rtl/` at the origin | `0bd1c151…` | Ratified at origin; arrives as stamped copies under `rtl/common/`. `stamped` in [`reuse.lock.json`](../reuse.lock.json) stays `[]` until a file is actually stamped |
+| Integration RTL | § "PDK-independent seam", left column (SoC top, crossbar, peripherals, boot ROM source); `rtl/` at the origin | `700b745…` | Ratified at origin; stamped under `rtl/common/` (`soc_top`, `soc_fabric`, `obi_xbar`, `obi_err_resp`, `rst_sync`, `boot_rom`, `boot_rom.hex`), with `firmware/boot/*` and `scripts/{fetch,convert}-cve2.sh`. `soc_sram_*` is not stamped (part c). See [`rtl-stamping-decision.md`](rtl-stamping-decision.md) |
 
 Re-pin record: `reuse.lock.json` edge `sky130-riscv-soc` moved from
-`f2587409c9cbc504c01c9fe3fa432fc34e49a3bb` (pinned 2026-10-17) to `0bd1c151156088072b591d38800feac1da0ae2cc` (pinned 2026-10-23).
+`f2587409c9cbc504c01c9fe3fa432fc34e49a3bb` (pinned 2026-10-17) to `0bd1c151156088072b591d38800feac1da0ae2cc` (pinned 2026-10-23),
+then to `700b74596f52eccf867f91b30f09d963f4cb9de7` (pinned 2026-10-27). The harness files stamped at `0bd1c151…` keep
+their own `origin_commit` in `stamped`; only the files added by #33 are stamped at `700b745…`.
 
 ### Origin rows re-derived for gf180
 
@@ -146,11 +148,11 @@ Each is answered from the artifacts actually present at the pinned commits.
    interface does not exist in that LEF (`views/README.md` states this).
    Pin access and blockage sufficiency for OpenROAD is therefore not
    evaluable until the macro-level LEF exists; included in `gf180-sram#197`.
-3. **Which origin files are stamped and which fetched?** None is stamped yet;
-   stamping is tracked separately (#12). The origin's harness lands after its
-   ratifying commit, which is why the pin is origin `main` at `0bd1c151…`.
-   The first [`reuse.lock.json`](../reuse.lock.json) names both siblings and
-   an empty stamped list; it is filled in as origin files land.
+3. **Which origin files are stamped and which fetched?** Resolved: the harness
+   was stamped by #12 and the integration RTL, boot firmware and CVE2 scripts
+   by #33 ([`rtl-stamping-decision.md`](rtl-stamping-decision.md)); CVE2
+   itself is fetched at its pinned commit (`imports` in
+   [`reuse.lock.json`](../reuse.lock.json)), never stamped.
 
 ### Out of scope
 
