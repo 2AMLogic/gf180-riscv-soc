@@ -24,7 +24,7 @@
         "role": "hygiene",
         "path": ".github/workflows/verification.yml",
         "passed": true,
-        "content_hash": "sha256:738dbcb2ddae7819ec3828925e4240dbc47c4969abb31977bd579dddb941a3d5"
+        "content_hash": "sha256:2541cf669f28d8b26a7c46ebff21641467116da9aa61606c06d22bf67b93d049"
       },
       {
         "check": "present",
@@ -47,8 +47,7 @@
         "argv": [
           "python3",
           "-I",
-          "-c",
-          "import hashlib, json, sys\nbad = 0\nfor e in json.load(open('reuse.lock.json'))['stamped']:\n    if hashlib.sha256(open(e['path'], 'rb').read()).hexdigest() != e['sha256']:\n        print('MISMATCH', e['path']); bad = 1\nsys.exit(bad)"
+          "verification/tools/check_stamped.py"
         ],
         "cwd": ".",
         "exit_status": 0,
@@ -104,7 +103,7 @@
         "path": "manifests/item10-inventory.json",
         "scope": "repo"
       },
-      "content_hash": "sha256:1b8781ebd1af705ae7d8f078c18b082404cd6ad03dd7d3022b1ebf2fb330783d"
+      "content_hash": "sha256:c9494341933a622d6bf63f63043d7949650369964917f958fa20e15073a4665a"
     }
   }
 }

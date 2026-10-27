@@ -230,7 +230,7 @@
         "command": null,
         "kind": "generic",
         "check_status": "pass",
-        "content_hash": "sha256:1b8781ebd1af705ae7d8f078c18b082404cd6ad03dd7d3022b1ebf2fb330783d",
+        "content_hash": "sha256:c9494341933a622d6bf63f63043d7949650369964917f958fa20e15073a4665a",
         "input_verified": true,
         "exit_status": 0,
         "artifact_binding": {
@@ -239,7 +239,7 @@
             "path": "manifests/item10-inventory.json",
             "scope": "repo"
           },
-          "content_hash": "sha256:1b8781ebd1af705ae7d8f078c18b082404cd6ad03dd7d3022b1ebf2fb330783d",
+          "content_hash": "sha256:c9494341933a622d6bf63f63043d7949650369964917f958fa20e15073a4665a",
           "input_verified": true,
           "summary": "T1 item 10 (Repo hygiene): 8/8 attestation checks passed (klt signoff --attest)",
           "source": "manifests/item10-inventory.json",
