@@ -1,5 +1,18 @@
 {
   "block": "gf180-riscv-soc",
   "kind": "digital",
-  "evidence": {}
+  "evidence": {
+    "6": {
+      "not_applicable": {
+        "spec": {
+          "file": "spec/soc.rows.json",
+          "content_hash": "sha256:0729d3afba8e15aef94990eb256c71f6f2dca07daef42e9ae6c42be4667a605e"
+        },
+        "statement": {
+          "file": "spec/soc.item6-na-statement.json",
+          "content_hash": "sha256:7fadf9a11b20bc1f9afa969b06199b407d7e1f9e2e51b4c628560a216c02c57c"
+        }
+      }
+    }
+  }
 }

@@ -1,0 +1,78 @@
+{
+  "status": "ratified",
+  "ratified": "2026-10-17",
+  "source": "spec/soc.md",
+  "source_git_blob": "ef8c973f74e92d30ede8ff94b07009bf010a427b",
+  "rows": [
+    {
+      "id": "a1-core",
+      "part": "A",
+      "title": "Core choice, ISA configuration, pinned upstream commit"
+    },
+    {
+      "id": "a2-obi-crossbar",
+      "part": "A",
+      "title": "OBI crossbar topology"
+    },
+    {
+      "id": "a3-memory-map",
+      "part": "A",
+      "title": "Memory map, reset vector"
+    },
+    {
+      "id": "a4-boot-flow",
+      "part": "A",
+      "title": "Boot flow (boot ROM)"
+    },
+    {
+      "id": "a5-peripherals",
+      "part": "A",
+      "title": "Peripherals"
+    },
+    {
+      "id": "a6-clock-reset",
+      "part": "A",
+      "title": "Clock and reset"
+    },
+    {
+      "id": "a7-firmware-verification-plan",
+      "part": "A",
+      "title": "Firmware and verification plan"
+    },
+    {
+      "id": "a8-integration-rtl",
+      "part": "A",
+      "title": "Integration RTL"
+    },
+    {
+      "id": "b1-pdk",
+      "part": "B",
+      "title": "PDK variant and revision"
+    },
+    {
+      "id": "b2-cell-library",
+      "part": "B",
+      "title": "Standard-cell library"
+    },
+    {
+      "id": "b3-core-supply",
+      "part": "B",
+      "title": "Core supply"
+    },
+    {
+      "id": "b4-sram",
+      "part": "B",
+      "title": "SRAM"
+    },
+    {
+      "id": "b5-signoff-fmax",
+      "part": "B",
+      "title": "Signoff Fmax"
+    },
+    {
+      "id": "b6-signoff",
+      "part": "B",
+      "title": "Signoff"
+    }
+  ]
+}

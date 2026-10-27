@@ -1,0 +1,74 @@
+{
+  "rows": [
+    {
+      "id": "a1-core",
+      "class": "deterministic",
+      "reason": "Core selection and ISA configuration are fixed choices; no statistical quantity."
+    },
+    {
+      "id": "a2-obi-crossbar",
+      "class": "deterministic",
+      "reason": "Interconnect topology is verified by bit-exact functional regression."
+    },
+    {
+      "id": "a3-memory-map",
+      "class": "deterministic",
+      "reason": "Address map and reset vector are fixed constants checked by functional tests."
+    },
+    {
+      "id": "a4-boot-flow",
+      "class": "deterministic",
+      "reason": "Boot ROM behaviour is verified by bit-exact functional regression."
+    },
+    {
+      "id": "a5-peripherals",
+      "class": "deterministic",
+      "reason": "Peripheral behaviour is verified by bit-exact functional regression against golden transcripts."
+    },
+    {
+      "id": "a6-clock-reset",
+      "class": "deterministic",
+      "reason": "Single clock and reset scheme; sequencing is checked by functional simulation."
+    },
+    {
+      "id": "a7-firmware-verification-plan",
+      "class": "deterministic",
+      "reason": "Architectural and firmware tests are pass/fail with exact expected results."
+    },
+    {
+      "id": "a8-integration-rtl",
+      "class": "deterministic",
+      "reason": "Integration RTL is digital logic checked by bit-exact functional regression."
+    },
+    {
+      "id": "b1-pdk",
+      "class": "fixed-choice",
+      "reason": "A pinned PDK variant and revision; a configuration choice, not a measured quantity."
+    },
+    {
+      "id": "b2-cell-library",
+      "class": "fixed-choice",
+      "reason": "A selected standard-cell library; a configuration choice, not a measured quantity."
+    },
+    {
+      "id": "b3-core-supply",
+      "class": "fixed-choice",
+      "reason": "A selected supply voltage; a configuration choice, bounded by the library corners."
+    },
+    {
+      "id": "b4-sram",
+      "class": "fixed-choice",
+      "reason": "Macro instance count and interface are fixed by the consumed macro's ratified spec."
+    },
+    {
+      "id": "b5-signoff-fmax",
+      "class": "corner-bounded",
+      "reason": "Fmax is bounded by static timing analysis at the listed corners, not by a distribution."
+    },
+    {
+      "id": "b6-signoff",
+      "class": "corner-bounded",
+      "reason": "Signoff is DRC and LVS pass/fail plus static timing closure at every listed corner."
+    }
+  ]
+}
