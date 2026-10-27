@@ -14,6 +14,10 @@ Ratified spec and decision records for this block.
   shared with the macros; no level shifters inside the block.
 - [`sram-instance-plan-decision.md`](sram-instance-plan-decision.md) — 8
   `gf180-sram` macros at target; address and byte-write mapping.
+- [`row-8-region-sizes-decision.md`](row-8-region-sizes-decision.md) — 4 KB +
+  4 KB regions at the origin's bases; needs an origin change.
+- [`row-8a-instruction-sram-decision.md`](row-8a-instruction-sram-decision.md) —
+  single-port 1RW instruction SRAM, fixed at the origin; fallback rule.
 - [`macro-views-interim-decision.md`](macro-views-interim-decision.md) —
   INTERIM: handling of the missing macro Liberty and macro-level LEF.
 
