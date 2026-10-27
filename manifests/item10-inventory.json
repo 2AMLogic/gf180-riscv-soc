@@ -15,8 +15,7 @@
       "argv": [
         "python3",
         "-I",
-        "-c",
-        "import hashlib, json, sys\nbad = 0\nfor e in json.load(open('reuse.lock.json'))['stamped']:\n    if hashlib.sha256(open(e['path'], 'rb').read()).hexdigest() != e['sha256']:\n        print('MISMATCH', e['path']); bad = 1\nsys.exit(bad)"
+        "verification/tools/check_stamped.py"
       ]
     },
     {
