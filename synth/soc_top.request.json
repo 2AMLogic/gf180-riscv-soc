@@ -1,0 +1,40 @@
+{
+  "schema": "klt.synthesize.request/1",
+  "engine": "yosys",
+  "sv_frontend": "sv2v",
+  "sources": [
+    "../build/cve2/cve2_top.v",
+    "../rtl/common/rst_sync.sv",
+    "../rtl/common/obi_err_resp.sv",
+    "../rtl/common/obi_xbar.sv",
+    "boot_rom_const.v",
+    "../rtl/common/soc_fabric.sv",
+    "../rtl/common/soc_top.sv",
+    "../rtl/soc_sram_d.sv",
+    "../rtl/soc_sram_i.sv"
+  ],
+  "hdl_toplevel": "soc_top",
+  "parameters": {
+    "ISRAM_AW": 10,
+    "DSRAM_AW": 10,
+    "ISRAM_1RW": 1
+  },
+  "pdk": {
+    "cell_library": "gf180mcu_fd_sc_mcu7t5v0",
+    "corner": "ss_125C_3v00"
+  },
+  "constraints": {
+    "clock_period_ns": 40
+  },
+  "macros": [
+    {
+      "lef": "../build/macro/sram_256x32_array.lef",
+      "verilog_blackbox": "../rtl/sram_256x32_blackbox.v"
+    }
+  ],
+  "_comment": "INTERIM (issue #34). macros[].lef is the 322-pin sram_256x32_array LEF at gf180-sram d0bacc0, used only to satisfy the required field (spec/macro-views-interim-decision.md): no pin-level claim comes from it, and its MACRO name differs from the instantiated sram_256x32. Macro pins come from rtl/sram_256x32_blackbox.v (unratified, gf180-sram#197). boot_rom is replaced by synth/boot_rom_const.v (constants). expected_latches=1 is the unmodified core's cve2_clock_gate latch, left unmapped by klt; see synth/README.md. Mapping corner is not a signoff corner.",
+  "structural": {
+    "expected_latches": 1
+  },
+  "run_id": "soc-top"
+}

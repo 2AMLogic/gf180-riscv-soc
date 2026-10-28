@@ -1,0 +1,23 @@
+{
+  "schema": "klt.synthesize.request/1",
+  "engine": "yosys",
+  "_comment": "Wrapper-only probe (issue #34): confirms sram_256x32 survives as an opaque macro. INTERIM: macros[].lef is the 322-pin array-core LEF (spec/macro-views-interim-decision.md), used only to satisfy the required field; no pin-level claim comes from it. Pins come from rtl/sram_256x32_blackbox.v (unratified, gf180-sram#197).",
+  "sources": [
+    "../rtl/soc_sram_d.sv"
+  ],
+  "hdl_toplevel": "soc_sram_d",
+  "pdk": {
+    "cell_library": "gf180mcu_fd_sc_mcu7t5v0",
+    "corner": "ss_125C_3v00"
+  },
+  "constraints": {
+    "clock_period_ns": 40
+  },
+  "macros": [
+    {
+      "lef": "../build/macro/sram_256x32_array.lef",
+      "verilog_blackbox": "../rtl/sram_256x32_blackbox.v"
+    }
+  ],
+  "run_id": "soc-sram-d"
+}
