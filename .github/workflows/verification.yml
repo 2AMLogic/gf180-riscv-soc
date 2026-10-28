@@ -30,6 +30,8 @@ jobs:
           python3 -I verification/tools/lint_records.py
           python3 -I verification/tools/tests/test_lint_records.py
       - name: RTL lint
+        env:
+          LINT_REQUIRE_SRAM: "1"
         run: verification/tools/lint_rtl.sh
 
   smoke:

@@ -5,7 +5,10 @@
 # Local gf180 variant of the origin's verification/tools/lint_rtl.sh (see
 # spec/rtl-stamping-decision.md); not stamped. Differences from the origin:
 # the stamped RTL is under rtl/common/, and the SRAM wrappers soc_sram_i/d are
-# gf180-specific and not yet written (spec/soc.md "PDK-independent seam").
+# gf180-specific, local files under rtl/ (spec/soc.md "PDK-independent seam").
+# The stamped defaults (ISRAM_1RW=0, 11-bit addresses) are the origin's 1rw1r
+# 8 KB build, which the gf180 macro cannot serve, so the tops are linted at the
+# gf180 target configuration: ISRAM_1RW=1, 1024 words per side.
 #
 # rtl/common/soc_top.sv instantiates cve2_top, which is generated, not checked
 # in (scripts/fetch-cve2.sh then scripts/convert-cve2.sh ->
@@ -33,7 +36,7 @@ skip() {  # drop the named basenames from files[]
     files=("${kept[@]}")
 }
 
-args=(--lint-only -Wno-MULTITOP)
+args=(--lint-only -Wno-MULTITOP -GISRAM_1RW=1 -GISRAM_AW=10 -GDSRAM_AW=10)
 notes=""
 if grep -qs '^module soc_sram_d\b' "${files[@]}"; then :
 elif [[ "${LINT_REQUIRE_SRAM:-0}" == 1 ]]; then
