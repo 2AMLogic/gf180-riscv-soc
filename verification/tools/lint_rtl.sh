@@ -36,7 +36,7 @@ skip() {  # drop the named basenames from files[]
     files=("${kept[@]}")
 }
 
-args=(--lint-only -Wno-MULTITOP -GISRAM_1RW=1 -GISRAM_AW=10 -GDSRAM_AW=10)
+args=(--lint-only -Wno-MULTITOP "-GISRAM_1RW=1'b1" -GISRAM_AW=10 -GDSRAM_AW=10)
 notes=""
 if grep -qs '^module soc_sram_d\b' "${files[@]}"; then :
 elif [[ "${LINT_REQUIRE_SRAM:-0}" == 1 ]]; then
