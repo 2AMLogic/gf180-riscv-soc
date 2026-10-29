@@ -7,9 +7,8 @@ Gate-level netlist of `soc_top` against `gf180mcu_fd_sc_mcu7t5v0` with the
 |---|---|
 | `soc_top.request.json` | `klt synthesize` request: `soc_top` at `ISRAM_1RW=1`, `ISRAM_AW=DSRAM_AW=10`, library `gf180mcu_fd_sc_mcu7t5v0`, PDK `gf180mcuD` |
 | `soc_top_synth.v` | the netlist (generated, committed) |
-| `soc_sram_d.request.json`, `soc_sram_d_synth.v` | wrapper-only probe: 4 macros survive as opaque cells |
 | `boot_rom_const.v`, `gen_boot_rom.py` | the boot ROM as constants, generated from `firmware/boot/boot_rom.hex` |
-| `regen.sh` | regenerates both netlists; `--check` fails if they differ byte-for-byte |
+| `regen.sh` | regenerates the netlist; `--check` fails if it differs byte-for-byte |
 
 Run `synth/regen.sh --check` to reproduce. It needs `klt`, `yosys` and `sv2v`
 (the pinned v0.0.13) on `PATH`; it installs nothing.

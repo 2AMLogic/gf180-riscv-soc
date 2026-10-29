@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Regenerate the gate-level netlist synth/soc_top_synth.v (and the wrapper-only
-# probe synth/soc_sram_d_synth.v) from the committed RTL and requests.
+# Regenerate the gate-level netlist synth/soc_top_synth.v from the committed
+# RTL and request.
 #
-#   synth/regen.sh            rewrite the netlists
-#   synth/regen.sh --check    regenerate into a scratch copy and fail if either
+#   synth/regen.sh            rewrite the netlist
+#   synth/regen.sh --check    regenerate into a scratch copy and fail if it
 #                             differs byte-for-byte from the committed netlist
 #
 # Needs on PATH: klt, yosys, sv2v (pinned PIN_SV2V in scripts/setup-env.sh; the
@@ -56,12 +56,10 @@ run() {  # run <request-stem> <run_id> <netlist-name> <out-name>
     cp "synth/.klt/synthesize/$2/$3" "$out/$4"
 }
 mkdir -p synth/.klt
-run soc_sram_d soc-sram-d soc_sram_d_synth.v soc_sram_d_synth.v
 run soc_top soc-top soc_top_synth.v soc_top_synth.v
 rm -f synth/.klt-*.json
 
 if [[ "$mode" == "--check" ]]; then
-    cmp "$out/soc_sram_d_synth.v" synth/soc_sram_d_synth.v
     cmp "$out/soc_top_synth.v" synth/soc_top_synth.v
-    echo "regen: netlists reproduce byte-for-byte"
+    echo "regen: netlist reproduces byte-for-byte"
 fi
