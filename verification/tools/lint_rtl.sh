@@ -16,10 +16,6 @@
 # warnings in that generated file (sv2v output we never edit) are ignored, any
 # warning or error located in rtl/ fails. When it is absent soc_top.sv is
 # skipped with a notice, or the script fails if LINT_REQUIRE_CORE=1.
-#
-# soc_fabric.sv and soc_top.sv are likewise skipped with a notice while no
-# soc_sram_d module is defined under rtl/, or the script fails if
-# LINT_REQUIRE_SRAM=1.
 set -euo pipefail
 cd "$(dirname "$0")/../.."
 CORE="${CVE2_BUILD:-build/cve2}/cve2_top.v"
@@ -38,14 +34,6 @@ skip() {  # drop the named basenames from files[]
 
 args=(--lint-only -Wno-MULTITOP "-GISRAM_1RW=1'b1" -GISRAM_AW=10 -GDSRAM_AW=10)
 notes=""
-if grep -qs '^module soc_sram_d\b' "${files[@]}"; then :
-elif [[ "${LINT_REQUIRE_SRAM:-0}" == 1 ]]; then
-    echo "rtl lint: no soc_sram_d wrapper under rtl/" >&2; exit 1
-else
-    echo "rtl lint: note: no soc_sram_d wrapper yet; skipping soc_fabric.sv and soc_top.sv"
-    skip soc_fabric.sv soc_top.sv
-    notes=", SRAM-dependent files skipped"
-fi
 if [[ -r "$CORE" ]]; then
     # warnings are not fatal for the generated file; they are filtered below
     args+=(-Wno-fatal "$CORE")
