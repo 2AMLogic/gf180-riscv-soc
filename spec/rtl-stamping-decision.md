@@ -41,7 +41,13 @@ make either skip a failure. The origin's alternate-fabric elaboration
 are therefore **not lint-checked here**; part c should set `LINT_REQUIRE_SRAM=1` in CI.
 
 `scripts/setup-env.sh` gains `PIN_SV2V="v0.0.13"` (the origin's pin); `--check`
-does not test for sv2v yet.
+did not test for sv2v when this record was written. **Superseded**: `--check`
+now runs `check_sv2v` (compares `sv2v --version` to `PIN_SV2V`), so all five
+declared pins are verified and `echo "environment matches the pins"` is no
+longer wider than its evidence. The deferral closed on this record's own terms
+rather than being reversed: `synth/regen.sh` now requires `sv2v` on `PATH` and
+compares the netlist it produces byte-for-byte, which it did not do when the
+pin landed unchecked.
 
 ## Evidence
 
