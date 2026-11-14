@@ -50,14 +50,15 @@ elif [[ -n "$mode" ]]; then
     echo "usage: $0 [--check]" >&2; exit 2
 fi
 
-run() {  # run <request-stem> <run_id> <netlist-name> <out-name>
-    rm -rf "synth/.klt/synthesize/$2"
-    klt synthesize --pdk "$PDK" "synth/$1.request.json" --format json >"synth/.klt-$1.json"
-    cp "synth/.klt/synthesize/$2/$3" "$out/$4"
-}
+# "soc-top" is the request's own run_id (synth/soc_top.request.json); it names
+# the run directory klt writes the netlist and its debug artifacts into. Both
+# the run directory and the JSON response live under the gitignored synth/.klt/,
+# so a failed run leaves nothing untracked behind.
 mkdir -p synth/.klt
-run soc_top soc-top soc_top_synth.v soc_top_synth.v
-rm -f synth/.klt-*.json
+rm -rf synth/.klt/synthesize/soc-top
+klt synthesize --pdk "$PDK" synth/soc_top.request.json --format json \
+    >synth/.klt/soc_top.response.json
+cp synth/.klt/synthesize/soc-top/soc_top_synth.v "$out/soc_top_synth.v"
 
 if [[ "$mode" == "--check" ]]; then
     cmp "$out/soc_top_synth.v" synth/soc_top_synth.v
