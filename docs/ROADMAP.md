@@ -4,7 +4,7 @@
 gf180mcu open PDK and earns its T1 evidence with `klt`; this file says where
 that stands and what comes next.
 
-**Status as of 2026-11-14, `main` @ `0c327b1`.** Where this file and the
+**Status as of 2026-11-14, `main` @ `deac81b`.** Where this file and the
 verdict of record (`manifests/gf180-riscv-soc.signoff.json`) disagree, the
 record wins.
 
@@ -47,10 +47,22 @@ Done and in the tree:
   "Blocked and waiting"). `synth/README.md` states its two limits: one unmapped
   `$_DLATCH_N_` from the core's clock gate, and a macro declared through the
   array-core LEF only to satisfy a required field.
-- The pre-part-c lint skip is gone: `verification/tools/lint_rtl.sh` lints
-  `soc_fabric.sv` and `soc_top.sv` unconditionally, and `LINT_REQUIRE_SRAM` is
-  absent from both the script and `verification.yml` (#51, merged as #52).
+- The pre-part-c SRAM lint skip is gone: `LINT_REQUIRE_SRAM` is absent from
+  both `verification/tools/lint_rtl.sh` and `verification.yml`, and
+  `soc_fabric.sv` is now linted unconditionally (#51, merged as #52). Coverage
+  is still 8 of 9 tracked RTL sources: `soc_top.sv` needs the generated core,
+  which no workflow builds, so a second knob (`LINT_REQUIRE_CORE`, caller-less)
+  skips it on every CI run (#65).
+- `setup-env.sh --check` checks the pinned tool versions it declares, including
+  the pinned sv2v version (#62).
 - CI: `verification.yml` and `signoff.yml`; `klt` pinned at `0.8.0`.
+- The `0.9.1` probe record is in the tree: `synth/probes/klt-0.9.1.md` (#60)
+  runs the committed interim synthesis request through `klt` 0.9.1 isolated via
+  `uvx` and gets the known rejection — macro validation fails before synthesis
+  starts, exit 1, byte-identical to the message #54 records — with the pin and
+  the committed netlist unchanged. The record decides nothing; how the gate is
+  restored stays with #54, and #68 tracks three wrong citations inside the
+  record itself.
 
 ## Now
 
@@ -64,18 +76,6 @@ Can start today; none depends on the macro views.
    `rtl-stamping-decision.md` and `stamped-harness-decision.md`, and
    `verification/README.md` no longer says "Empty until the first work lands
    here". #59.
-3. **Record what the current `klt` release does with the interim synthesis
-   request.** The clock-gate work (#43) was last tried on `klt` 0.9.0, which
-   rejected the macro declaration because the black-box module name
-   (`sram_256x32`) and the LEF `MACRO` name (`sram_256x32_array`) differ. This
-   is a **known rejection, not an open question**: per #54 every `0.9.0+`
-   release enforces that match and nothing is published in between, so the probe
-   confirms and pins the exact rejection on `0.9.1` rather than testing an
-   unknown. The capability that would lift it is
-   [`klayout-tools#5612`](https://github.com/2AMLogic/klayout-tools/issues/5612).
-   Done when a committed probe record under `synth/` gives the command, the
-   `klt` version, the exit status and the validation message or cell-type
-   counts, with the pin and the committed netlist unchanged. #60; feeds #43.
 
 ## Next
 
@@ -148,10 +148,12 @@ Each is unblocked by the named item.
 What is blocked is the **design chain**: #43 and the T1 items behind it (#20,
 #22-#27, #29, #30, #34, #35) all wait on the macro views. The rest of the
 tracker is dispatchable today — small, PDK-independent repo and tooling work:
-the three Now items (#58, #59, #60), the `regen.sh`, lint and env follow-ups
-(#53, #61, #62, #63, #65), the decision-record note #55, and the T1 tracking
-issue #4. Two open items are nobody's to dispatch: #54 needs an operator
-ruling, and #50 is a Champion digest.
+the two Now items (#58, #59), the `regen.sh`, lint and env follow-ups
+(#53, #61, #63, #65), the decision-record note #55, the citation fixes in the
+new probe record #68, the two hermit items (#70: no `PIN_RISCV_GCC` declared;
+#71: stale analog ignore rules), and the T1 tracking issue #4. Two open items
+are nobody's to dispatch: #54 needs an operator ruling, and #50 is a Champion
+digest.
 
 ## Not planned
 
