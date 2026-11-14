@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate synth/boot_rom_const.v: the boot ROM as constants, for synthesis.
+"""Generate build/synth/boot_rom_const.v: the boot ROM as constants, for synthesis.
 
 The stamped rtl/common/boot_rom.sv is a behavioural array filled by
 $readmemh and a plusarg, which the Yosys front end cannot elaborate and which
