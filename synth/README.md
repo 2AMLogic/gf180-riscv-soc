@@ -7,7 +7,7 @@ Gate-level netlist of `soc_top` against `gf180mcu_fd_sc_mcu7t5v0` with the
 |---|---|
 | `soc_top.request.json` | `klt synthesize` request: `soc_top` at `ISRAM_1RW=1`, `ISRAM_AW=DSRAM_AW=10`, library `gf180mcu_fd_sc_mcu7t5v0`, PDK `gf180mcuD` |
 | `soc_top_synth.v` | the netlist (generated, committed) |
-| `boot_rom_const.v`, `gen_boot_rom.py` | the boot ROM as constants, generated from `firmware/boot/boot_rom.hex` |
+| `gen_boot_rom.py` | generates the boot ROM constants to `build/synth/boot_rom_const.v` (untracked) from `firmware/boot/boot_rom.hex` |
 | `regen.sh` | regenerates the netlist; `--check` fails if it differs byte-for-byte |
 
 Run `synth/regen.sh --check` to reproduce. It needs `klt`, `yosys` and `sv2v`
@@ -39,6 +39,7 @@ Probe record of what `klt` 0.9.1 does with this request: [`probes/klt-0.9.1.md`]
   the core stays unmodified) and `klt` can map or replace it (`2AMLogic/klayout-tools#4458`), this netlist is
   not ready for place-and-route.
 - **Boot ROM.** `boot_rom.sv` is stamped and cannot be read by the Yosys front
-  end ( `$readmemh`, plusargs), so `boot_rom_const.v` replaces it for synthesis:
+  end ( `$readmemh`, plusargs), so the generated `build/synth/boot_rom_const.v`
+  replaces it for synthesis:
   same module name and ports, the image from `firmware/boot/boot_rom.hex`,
   checked equal to the original over all 1024 addresses in simulation.

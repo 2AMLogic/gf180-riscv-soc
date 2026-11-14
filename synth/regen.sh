@@ -39,8 +39,11 @@ fi
 
 [[ -r build/cve2/cve2_top.v ]] || { scripts/fetch-cve2.sh && scripts/convert-cve2.sh; }
 
-# the constant ROM is generated from the boot image; it must be current
-python3 -I synth/gen_boot_rom.py firmware/boot/boot_rom.hex synth/boot_rom_const.v
+# the constant ROM is generated from the boot image; it must be current.
+# Generated into the untracked build tree: it is an input to the run below,
+# never a checked-in artifact.
+mkdir -p build/synth
+python3 -I synth/gen_boot_rom.py firmware/boot/boot_rom.hex build/synth/boot_rom_const.v
 
 mode="${1:-}"
 out=synth
