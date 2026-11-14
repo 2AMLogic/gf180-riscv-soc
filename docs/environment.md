@@ -26,6 +26,9 @@ cocotb goes in a venv, not on the host:
 
 `.github/workflows/verification.yml` installs cocotb at the pinned version
 (parsed from `scripts/setup-env.sh`) but Icarus Verilog from the distro
-(`apt-get install iverilog`), which is **not** guaranteed to be `13.0`. CI does
+(`apt-get install iverilog`), which is **not** guaranteed to be `13.0`. The
+lint job likewise installs sv2v from the release tagged `PIN_SV2V` (parsed the
+same way), plus distro iverilog, and fetches and converts the CVE2 core — the
+RTL lint requires it, so `soc_top.sv` is linted on every CI run. CI does
 not run `--check`; the pinned-version check is a local one. See
 `spec/stamped-harness-decision.md`.
