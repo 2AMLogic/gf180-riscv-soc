@@ -20,5 +20,27 @@ Ratified spec and decision records for this block.
   single-port 1RW instruction SRAM, fixed at the origin; fallback rule.
 - [`macro-views-interim-decision.md`](macro-views-interim-decision.md) —
   INTERIM: handling of the missing macro Liberty and macro-level LEF.
+- [`stamped-harness-decision.md`](stamped-harness-decision.md) — the
+  PDK-independent cocotb harness and record linter are adopted unmodified as
+  stamped copies; defines the `reuse.lock.json` `stamped` entry schema, and
+  keeps `scripts/setup-env.sh` as a local gf180 variant.
+- [`rtl-stamping-decision.md`](rtl-stamping-decision.md) — what is stamped
+  from `sky130-riscv-soc` `700b745` under `rtl/common/`, `firmware/boot/` and
+  `scripts/`, and so may not be edited here; CVE2 is fetched rather than
+  stamped, and the SRAM seam is not stamped.
 
 Pins to siblings are in [`../reuse.lock.json`](../reuse.lock.json).
+
+Two machine-readable companions to [`soc.md`](soc.md) carry the T1 item 6
+(statistical rows) evidence. Both are hash-pinned by
+[`../manifests/gf180-riscv-soc.json`](../manifests/gf180-riscv-soc.json) under
+`evidence."6"` and mirrored in the verdict of record
+[`../manifests/gf180-riscv-soc.signoff.json`](../manifests/gf180-riscv-soc.signoff.json),
+so editing either one means regenerating both manifests in the same change:
+
+- [`soc.rows.json`](soc.rows.json) — the ratified row inventory of `soc.md`
+  (14 rows across Parts A and B); the `spec` leg of the item 6
+  `not_applicable` verdict.
+- [`soc.item6-na-statement.json`](soc.item6-na-statement.json) — per row, why
+  a statistical treatment does not apply (`deterministic`, `fixed-choice` or
+  `corner-bounded`); the `statement` leg of the same verdict.
