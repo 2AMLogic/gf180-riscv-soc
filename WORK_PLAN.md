@@ -14,53 +14,66 @@ _None._
 
 `loom:very-important` (one counts per workspace); every stage takes these first.
 
-- **#32**: T1 item 1 (a/4): decision records for rows 8 and 8a, and the origin fix issue
+- **#43**: Decide how the core's clock-gate latch reaches the gf180 library
 
 ## Important
 
 `loom:important`; taken before unlabelled work.
 
-_None._
+- **#20**: T1 item 1 (design sources): decide rows 8/8a, stamp the origin integration RTL, and synthesize the SoC to a gf180mcu gate-level netlist
+- **#34**: T1 item 1 (c/4): gf180 soc_sram wrapper and klt synthesize to a gate-level netlist
+- **#35**: T1 item 1 (d/4): design-source inventory and klt signoff --attest 1
+- **#54**: synth/regen.sh --check cannot run on any installable klt: the interim macro declaration is rejected at request validation
 
 ## Ready
 
 Human-approved issues ready for implementation (`loom:issue`).
 
-- **#32**: T1 item 1 (a/4): decision records for rows 8 and 8a, and the origin fix issue
+- **#68**: Correct three citations in synth/probes/klt-0.9.1.md: two wrong regen.sh line ranges, an addition #54 already records, and an unscoped "sv2v never invoked"
+- **#70**: scripts/setup-env.sh declares no PIN_RISCV_GCC, but stamped firmware/boot/build.sh delegates its toolchain pin to it
 
 ## In Progress
 
 Issues currently being built (`loom:building`).
 
-- **#21**: T1 item 10 (repo hygiene): repo-hygiene inventory and klt signoff --attest 10 envelope
+- **#55**: Append a superseded-by note to spec/rtl-stamping-decision.md's Divergence section
+- **#58**: Bring the README status in line with the tree and the signoff record
+- **#61**: Make the RTL lint fail on an empty RTL tree instead of reporting ok: the no-op guard predates the RTL
+- **#65**: RTL lint never checks rtl/common/soc_top.sv: nothing sets LINT_REQUIRE_CORE and its skip is the only arm CI takes
+- **#71**: Drop the analog sim/ and flow/ ignore rules from .gitignore: neither tree has ever existed in this digital repo
 
 ## PRs Awaiting Review
 
 PRs waiting on Judge (`loom:review-requested`).
 
-- **#36**: feat(signoff): attest T1 item 10 repo hygiene
+- **#73**: fix: fail RTL lint on an empty RTL tree instead of reporting ok
+- **#75**: docs: append Superseded note to rtl-stamping-decision Divergence section
+- **#76**: ci: lint soc_top.sv on every run — fetch the CVE2 core in CI and drop the LINT_REQUIRE_CORE skip
 
 ## Approved (Awaiting Merge)
 
 PRs that passed review and are queued for Champion auto-merge (`loom:pr`).
 
-_None._
+- **#57**: docs: roadmap as of 2026-11-13
+- **#69**: docs: state stamped RTL and interim netlist in the README status
+- **#74**: Remove dead analog sim/ and flow/ ignore rules from .gitignore
 
 ## Proposed
 
 Issues carrying `loom:curated`.
 
 - **#4**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
-- **#21**: T1 item 10 (repo hygiene): repo-hygiene inventory and klt signoff --attest 10 envelope *(curated)*
-- **#32**: T1 item 1 (a/4): decision records for rows 8 and 8a, and the origin fix issue *(curated)*
+- **#34**: T1 item 1 (c/4): gf180 soc_sram wrapper and klt synthesize to a gate-level netlist *(curated)*
+- **#43**: Decide how the core's clock-gate latch reaches the gf180 library *(curated)*
+- **#55**: Append a superseded-by note to spec/rtl-stamping-decision.md's Divergence section *(curated)*
+- **#58**: Bring the README status in line with the tree and the signoff record *(curated)*
+- **#68**: Correct three citations in synth/probes/klt-0.9.1.md: two wrong regen.sh line ranges, an addition #54 already records, and an unscoped "sv2v never invoked" *(curated)*
 
 ## Proposed (Architect / Hermit)
-
 
 _None._
 
 ## Epics
-
 
 _None._
 
@@ -70,12 +83,12 @@ _None._
 |------|-------|
 | Operator merge-risk holds | 0 |
 | Very important | 1 |
-| Important | 0 |
-| Ready (`loom:issue`) | 1 |
-| In Progress (`loom:building`) | 1 |
-| PRs awaiting review | 1 |
-| Approved PRs awaiting merge | 0 |
-| Curated | 3 |
+| Important | 4 |
+| Ready (`loom:issue`) | 2 |
+| In Progress (`loom:building`) | 5 |
+| PRs awaiting review | 3 |
+| Approved PRs awaiting merge | 3 |
+| Curated | 6 |
 | Architect / Hermit proposals | 0 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->
