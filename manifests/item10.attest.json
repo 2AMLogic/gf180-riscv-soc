@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "kind": "generic",
+  "status": "pass",
+  "t1_item": 10,
+  "summary": "T1 item 10 (Repo hygiene): 8/8 attestation checks passed (klt signoff --attest)",
+  "source": "manifests/item10-inventory.json",
+  "attestation": {
+    "producer": "klt signoff --attest",
+    "inventory_schema_version": 1,
+    "hash_algorithm": "sha256-raw-bytes",
+    "check_count": 8,
+    "passed_count": 8,
+    "checks": [
+      {
+        "check": "present",
+        "role": "hygiene",
+        "path": ".github/workflows/signoff.yml",
+        "passed": true,
+        "content_hash": "sha256:e24bacb87b2854579c9fd5e9ecaf8739ee026c5bd3e0856b41ec09e39ecd8292"
+      },
+      {
+        "check": "present",
+        "role": "hygiene",
+        "path": ".github/workflows/verification.yml",
+        "passed": true,
+        "content_hash": "sha256:2541cf669f28d8b26a7c46ebff21641467116da9aa61606c06d22bf67b93d049"
+      },
+      {
+        "check": "present",
+        "role": "hygiene",
+        "path": "LICENSE",
+        "passed": true,
+        "content_hash": "sha256:cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+      },
+      {
+        "check": "present",
+        "role": "hygiene",
+        "path": "README.md",
+        "passed": true,
+        "content_hash": "sha256:e8644806e0e5d6896578ada8cdec3b3a6955005be519fef073b25881a0c48d3b"
+      },
+      {
+        "check": "command",
+        "role": "audit",
+        "name": "stamped-file-hashes",
+        "argv": [
+          "python3",
+          "-I",
+          "verification/tools/check_stamped.py"
+        ],
+        "cwd": ".",
+        "exit_status": 0,
+        "passed": true
+      },
+      {
+        "check": "command",
+        "role": "audit",
+        "name": "lint-records",
+        "argv": [
+          "python3",
+          "-I",
+          "verification/tools/lint_records.py"
+        ],
+        "cwd": ".",
+        "exit_status": 0,
+        "passed": true
+      },
+      {
+        "check": "command",
+        "role": "audit",
+        "name": "lint-records-tests",
+        "argv": [
+          "python3",
+          "-I",
+          "verification/tools/tests/test_lint_records.py"
+        ],
+        "cwd": ".",
+        "exit_status": 0,
+        "passed": true
+      },
+      {
+        "check": "command",
+        "role": "audit",
+        "name": "lint-rtl",
+        "argv": [
+          "verification/tools/lint_rtl.sh"
+        ],
+        "cwd": ".",
+        "exit_status": 0,
+        "passed": true,
+        "local_only": true
+      }
+    ]
+  },
+  "provenance": {
+    "klt_version": "0.8.0",
+    "klayout_version": null,
+    "pdk": null,
+    "deck": null,
+    "input": {
+      "path": {
+        "path": "manifests/item10-inventory.json",
+        "scope": "repo"
+      },
+      "content_hash": "sha256:c9494341933a622d6bf63f63043d7949650369964917f958fa20e15073a4665a"
+    }
+  }
+}

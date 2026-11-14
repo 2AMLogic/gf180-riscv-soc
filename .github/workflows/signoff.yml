@@ -61,3 +61,8 @@ jobs:
             exit 1
           fi
           echo "Committed verdict of record reproduces."
+
+      - name: Re-attest item 10 (repo hygiene)
+        run: |
+          klt signoff --attest 10 --check manifests/item10.attest.json \
+                      --inventory manifests/item10-inventory.json

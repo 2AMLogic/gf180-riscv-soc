@@ -16,20 +16,8 @@ if [[ -z "${PYTHON_BIN:-}" && -x .venv/bin/python3 ]]; then
 fi
 PY="${PYTHON_BIN:-python3}"
 
-stamped() {
-    "$PY" -I - <<'PYEOF'
-import hashlib, json, sys
-bad = 0
-for e in json.load(open("reuse.lock.json"))["stamped"]:
-    got = hashlib.sha256(open(e["path"], "rb").read()).hexdigest()
-    if got != e["sha256"]:
-        print("MISMATCH", e["path"]); bad = 1
-sys.exit(bad)
-PYEOF
-}
-
 lint() {
-    stamped
+    "$PY" -I verification/tools/check_stamped.py
     "$PY" -I verification/tools/lint_records.py
     "$PY" -I verification/tools/tests/test_lint_records.py
     verification/tools/lint_rtl.sh

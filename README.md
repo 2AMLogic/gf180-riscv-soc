@@ -94,6 +94,42 @@ uvx --from "klayout-tools==$(cat .github/klt-version)" klt signoff \
   > manifests/gf180-riscv-soc.signoff.json
 ```
 
+Item 10 (repo hygiene) is attested by an inventory of the README, `LICENSE`
+and CI workflows plus the PDK-free CI gates
+([`manifests/item10-inventory.json`](manifests/item10-inventory.json)); the
+committed envelope is
+[`manifests/item10.attest.json`](manifests/item10.attest.json) and the block
+manifest cites it under `evidence."10"`. The envelope pins the hash of every
+inventoried file, so any edit to `README.md`, `LICENSE` or a workflow needs
+the envelope regenerated in the same PR (see Reproduce).
+
+## Reproduce
+
+Nothing is measured here; the only results today are the harness checks and
+the graded T1 record. To reproduce them:
+
+```
+scripts/setup-env.sh          # pinned cocotb venv (.venv); installs nothing globally
+scripts/check.sh lint         # stamped-file hashes, record lint, fixture test, RTL lint (needs Verilator)
+scripts/check.sh all          # lint, then the cocotb smoke
+```
+
+Regenerate the verdict of record and the item 10 attestation with the pinned
+`klt` (see T1 evidence above for the record command):
+
+```
+KLT="uvx --from klayout-tools==$(cat .github/klt-version) klt"
+$KLT signoff --attest 10 --inventory manifests/item10-inventory.json \
+  -o manifests/item10.attest.json
+$KLT signoff --attest 10 --check manifests/item10.attest.json \
+  --inventory manifests/item10-inventory.json
+```
+
+If the envelope's `provenance.input.content_hash` changes, update
+`evidence."10".content_hash` in `manifests/gf180-riscv-soc.json` and then
+regenerate the verdict of record. Later T1 issues extend this section as
+results land.
+
 ## Repo layout
 
 ```

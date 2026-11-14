@@ -14,13 +14,13 @@ _None._
 
 `loom:very-important` (one counts per workspace); every stage takes these first.
 
-_None._
+- **#32**: T1 item 1 (a/4): decision records for rows 8 and 8a, and the origin fix issue
 
 ## Important
 
 `loom:important`; taken before unlabelled work.
 
-- **#32**: T1 item 1 (a/4): decision records for rows 8 and 8a, and the origin fix issue
+_None._
 
 ## Ready
 
@@ -69,8 +69,8 @@ _None._
 | Bucket | Count |
 |------|-------|
 | Operator merge-risk holds | 0 |
-| Very important | 0 |
-| Important | 1 |
+| Very important | 1 |
+| Important | 0 |
 | Ready (`loom:issue`) | 1 |
 | In Progress (`loom:building`) | 1 |
 | PRs awaiting review | 1 |

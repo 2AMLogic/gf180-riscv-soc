@@ -15,6 +15,7 @@ PIN_PDK_VARIANT="gf180mcuD"                                    # spec/pdk-pin-de
 PIN_OPEN_PDKS_REV="f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7"   # spec/pdk-pin-decision.md
 PIN_IVERILOG="13.0"
 PIN_COCOTB="2.0.1"
+PIN_SV2V="v0.0.13"        # SystemVerilog -> Verilog for CVE2; scripts/convert-cve2.sh (not yet checked by --check)
 # ---------------------------------------------------------------------------
 
 PDK_ROOT="${PDK_ROOT:-$HOME/.ciel}"
