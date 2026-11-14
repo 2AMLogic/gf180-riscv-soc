@@ -4,7 +4,7 @@
 gf180mcu open PDK and earns its T1 evidence with `klt`; this file says where
 that stands and what comes next.
 
-**Status as of 2026-11-13, `main` @ `2674291`.** Where this file and the
+**Status as of 2026-11-14, `main` @ `0c327b1`.** Where this file and the
 verdict of record (`manifests/gf180-riscv-soc.signoff.json`) disagree, the
 record wins.
 
@@ -35,40 +35,47 @@ Done and in the tree:
 - Ratified spec `spec/soc.md` with decision records for the PDK pin, cell
   library, supply plan, SRAM instance plan, rows 8 and 8a, RTL stamping and
   the stamped harness (#6, #15, #39).
-- Stamped copies from the origin at `700b745`, pinned and hash-checked through
-  `reuse.lock.json`: integration RTL under `rtl/common/`, boot firmware,
-  CVE2 fetch/convert scripts, cocotb harness and record linter (#14, #41, #42).
+- 22 stamped copies from the origin, pinned and hash-checked through
+  `reuse.lock.json`, taken at two origin commits: 13 at `700b745` (integration
+  RTL under `rtl/common/`, boot firmware, the CVE2 fetch/convert scripts) and 9
+  at `0bd1c15` (the cocotb harness and the record linter, stamped via #14). The
+  `ported_from` edge pin is `700b745` (#14, #41, #42).
 - Local SRAM wrappers and a hand-written macro black box, marked INTERIM (#44).
-- `synth/soc_top_synth.v`, reproducible with `synth/regen.sh --check` (#44, #46).
-  `synth/README.md` states its two limits: one unmapped `$_DLATCH_N_` from the
-  core's clock gate, and a macro declared through the array-core LEF only to
-  satisfy a required field.
+- `synth/soc_top_synth.v`, an interim gate-level netlist (#44, #46). It is in
+  the tree, but it is **not demonstrably reproducible**: its gate,
+  `synth/regen.sh --check`, cannot run on any installable `klt` (#54 — see
+  "Blocked and waiting"). `synth/README.md` states its two limits: one unmapped
+  `$_DLATCH_N_` from the core's clock gate, and a macro declared through the
+  array-core LEF only to satisfy a required field.
+- The pre-part-c lint skip is gone: `verification/tools/lint_rtl.sh` lints
+  `soc_fabric.sv` and `soc_top.sv` unconditionally, and `LINT_REQUIRE_SRAM` is
+  absent from both the script and `verification.yml` (#51, merged as #52).
 - CI: `verification.yml` and `signoff.yml`; `klt` pinned at `0.8.0`.
 
 ## Now
 
 Can start today; none depends on the macro views.
 
-1. **Finish the lint-guard removal.** Done when `verification/tools/lint_rtl.sh`
-   lints `soc_fabric.sv` unconditionally, `LINT_REQUIRE_SRAM` is gone from the
-   script and `verification.yml`, and `scripts/check.sh lint` passes. #51 (in
-   progress).
-2. **Bring the README status in line with the record.** It still says
+1. **Bring the README status in line with the record.** It still says
    "Nothing is designed yet" and that every T1 item is `unmet`. Done when the
    status line, T1 paragraph and repo layout match the tree, and `manifests/item10.attest.json` plus the verdict of record are
-   regenerated in the same PR so `signoff.yml` passes. No issue yet.
-3. **Complete the documentation indexes.** Done when `spec/README.md` lists
+   regenerated in the same PR so `signoff.yml` passes. #58.
+2. **Complete the documentation indexes.** Done when `spec/README.md` lists
    `rtl-stamping-decision.md` and `stamped-harness-decision.md`, and
    `verification/README.md` no longer says "Empty until the first work lands
-   here". No issue yet.
-4. **Record what the current `klt` release does with the interim synthesis
+   here". #59.
+3. **Record what the current `klt` release does with the interim synthesis
    request.** The clock-gate work (#43) was last tried on `klt` 0.9.0, which
    rejected the macro declaration because the black-box module name
-   (`sram_256x32`) and the LEF `MACRO` name (`sram_256x32_array`) differ; 0.9.1
-   is published and untried. Done when a committed probe record under `synth/`
-   gives the command, the `klt` version, the exit status and the validation
-   message or cell-type counts, with the pin and the committed netlist
-   unchanged. No issue yet; feeds #43.
+   (`sram_256x32`) and the LEF `MACRO` name (`sram_256x32_array`) differ. This
+   is a **known rejection, not an open question**: per #54 every `0.9.0+`
+   release enforces that match and nothing is published in between, so the probe
+   confirms and pins the exact rejection on `0.9.1` rather than testing an
+   unknown. The capability that would lift it is
+   [`klayout-tools#5612`](https://github.com/2AMLogic/klayout-tools/issues/5612).
+   Done when a committed probe record under `synth/` gives the command, the
+   `klt` version, the exit status and the validation message or cell-type
+   counts, with the pin and the committed netlist unchanged. #60; feeds #43.
 
 ## Next
 
@@ -113,13 +120,38 @@ Each is unblocked by the named item.
 - **A decision on an interim macro view.** `CLAUDE.md` allows a labelled
   stand-in for a missing view only through a decision record; whether to take
   one for synthesis and floorplanning rather than wait is undecided (#43).
-- **Tool gaps closed upstream.** `klayout-tools#4458` and `#4459` are closed;
-  `synth/README.md` still calls both open and is corrected as part of #43.
+- **The reproducibility gate is red.** `synth/regen.sh --check` fails before
+  synthesis on every installable `klt`: request validation rejects the interim
+  macro declaration that `spec/macro-views-interim-decision.md` ratified,
+  because the black-box module name (`sram_256x32`) and the LEF `MACRO` name
+  (`sram_256x32_array`) differ. The pin in `.github/klt-version`, `0.8.0`,
+  predates that schema; `0.9.0+` all enforce the match; nothing is published in
+  between. No workflow runs the check either — `regen.sh` appears nowhere under
+  `.github/` — so the green `verification` and `klt signoff` runs are not
+  evidence for it. Byte-for-byte reproducibility of `synth/soc_top_synth.v` is
+  **currently undemonstrable**; how to restore the gate is an open operator
+  decision in #54.
+- **Tool gaps: two closed upstream, one open and live.** `klayout-tools#4458`
+  and `#4459` are closed, and `synth/README.md` still calls both open — it is
+  corrected as part of #43. But `#4459` was closed by *rejecting* the
+  blackbox-name-vs-LEF-`MACRO`-name shape this repo ratified, which is what
+  turned the gate above red and opened a new gap:
+  [`klayout-tools#5612`](https://github.com/2AMLogic/klayout-tools/issues/5612)
+  — no way to declare a macro by blackbox alone, so a design whose macro has no
+  LEF yet cannot be synthesized at all. That one is open, and the gate waits on
+  it.
 - **Housekeeping.** PR #38 (generated `WORK_PLAN.md`/`WORK_LOG.md` update) is
-  approved but in merge conflict, so both files lag the tracker.
+  open and awaiting re-review (`loom:review-requested`); its merge conflict has
+  since been resolved and it is mergeable again, so both files lag the tracker
+  only until it lands.
 
-Apart from #51 and the three unfiled Now items, **nothing in the tracker is
-dispatchable**: every other open issue is blocked behind #43.
+What is blocked is the **design chain**: #43 and the T1 items behind it (#20,
+#22-#27, #29, #30, #34, #35) all wait on the macro views. The rest of the
+tracker is dispatchable today — small, PDK-independent repo and tooling work:
+the three Now items (#58, #59, #60), the `regen.sh`, lint and env follow-ups
+(#53, #61, #62, #63, #65), the decision-record note #55, and the T1 tracking
+issue #4. Two open items are nobody's to dispatch: #54 needs an operator
+ruling, and #50 is a Champion digest.
 
 ## Not planned
 
