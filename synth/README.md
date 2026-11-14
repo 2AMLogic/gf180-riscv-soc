@@ -13,6 +13,8 @@ Gate-level netlist of `soc_top` against `gf180mcu_fd_sc_mcu7t5v0` with the
 Run `synth/regen.sh --check` to reproduce. It needs `klt`, `yosys` and `sv2v`
 (the pinned v0.0.13) on `PATH`; it installs nothing.
 
+Probe record of what `klt` 0.9.1 does with this request: [`probes/klt-0.9.1.md`](probes/klt-0.9.1.md).
+
 ## What the netlist is, and is not
 
 - **Mapping corner, not signoff.** Mapped against `ss_125C_3v00` with a 40 ns
