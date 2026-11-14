@@ -15,7 +15,7 @@ PIN_PDK_VARIANT="gf180mcuD"                                    # spec/pdk-pin-de
 PIN_OPEN_PDKS_REV="f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7"   # spec/pdk-pin-decision.md
 PIN_IVERILOG="13.0"
 PIN_COCOTB="2.0.1"
-PIN_SV2V="v0.0.13"        # SystemVerilog -> Verilog for CVE2; scripts/convert-cve2.sh (not yet checked by --check)
+PIN_SV2V="v0.0.13"        # SystemVerilog -> Verilog for CVE2; scripts/convert-cve2.sh
 # ---------------------------------------------------------------------------
 
 PDK_ROOT="${PDK_ROOT:-$HOME/.ciel}"
@@ -51,11 +51,20 @@ check_cocotb() {
     else fail cocotb "got ${got}, pinned ${PIN_COCOTB}"; fi
 }
 
+check_sv2v() {
+    local out
+    if ! command -v sv2v >/dev/null 2>&1; then fail sv2v "not on PATH (pinned ${PIN_SV2V})"; return; fi
+    out="$(sv2v --version 2>&1 | head -n 1)" || true
+    if [[ "$out" == "sv2v ${PIN_SV2V}" ]]; then ok sv2v "$out"
+    else fail sv2v "got '${out}', pinned '${PIN_SV2V}'"; fi
+}
+
 case "${1:-}" in
     --check)
         check_pdk
         check_iverilog
         check_cocotb
+        check_sv2v
         if [[ "$FAILED" -ne 0 ]]; then echo "environment does not match the pins" >&2; exit 1; fi
         echo "environment matches the pins"
         ;;

@@ -9,6 +9,7 @@ quotes it. `scripts/setup-env.sh --check` exits 1 when anything differs.
 | open_pdks revision | `f6eeac7dad085ffcc829ccfd721f7b4ce39edcf7` | `spec/pdk-pin-decision.md` |
 | Icarus Verilog | `13.0` | origin `sky130-riscv-soc` |
 | cocotb | `2.0.1` | origin `sky130-riscv-soc` |
+| sv2v | `v0.0.13` | origin `sky130-riscv-soc` |
 
 The PDK is read from `$PDK_ROOT/gf180mcuD/SOURCES` (default `PDK_ROOT=~/.ciel`).
 The check refuses a tree whose `open_pdks` line differs, including the older
