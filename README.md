@@ -7,7 +7,9 @@ macro and a minimal peripheral set — designed by AI agents driving
 [klayout-tools](https://github.com/2AMLogic/klayout-tools) and the
 open-source cocotb + Icarus, Yosys and OpenROAD flow.
 
-**Status: specification ratified (`spec/soc.md`, 2026-10-17).** Nothing is designed yet.
+**Status: spec ratified (`spec/soc.md`, 2026-10-17); the origin's integration
+RTL is stamped here and synthesized to an interim gate-level netlist that is
+not yet place-and-route ready.** No layout and no timing result.
 
 **Built agent-native.** Every specification, decision record, testbench, and
 line of documentation here is produced by AI agents working from a ratified
@@ -75,7 +77,14 @@ Maturity ladder: spec ratified → origin's SoC RTL and tests passing on this
 repo's netlist → synthesized with timing met at the target → placed and
 routed with the `gf180-sram` macros, DRC/LVS-clean → post-route
 multi-corner STA closed → shuttle seat → measured silicon (bench Fmax).
-**Current position: spec ratified; no RTL, synthesis or timing result yet.**
+**Current position: spec ratified; integration RTL stamped and synthesized to
+an interim gate-level netlist; no layout and no timing result.** The origin's
+integration RTL is stamped under `rtl/common/`, with local `soc_sram_i` /
+`soc_sram_d` wrappers over the `gf180-sram` macro, and `soc_top` is synthesized
+to [`synth/soc_top_synth.v`](synth/soc_top_synth.v). That netlist is a mapping
+corner, not a signoff — `klt synthesize` reports no timing for this design, and
+the unmodified core's `cve2_clock_gate` leaves one unmapped `$_DLATCH_N_` — so
+it is not ready for place-and-route ([`synth/README.md`](synth/README.md)).
 
 ## T1 evidence
 
@@ -84,9 +93,11 @@ manifest is [`manifests/gf180-riscv-soc.json`](manifests/gf180-riscv-soc.json)
 and the committed verdict of record is
 [`manifests/gf180-riscv-soc.signoff.json`](manifests/gf180-riscv-soc.signoff.json);
 CI fails if the record no longer reproduces. The `klayout-tools` version is
-pinned in [`.github/klt-version`](.github/klt-version). The manifest has no
-evidence yet, so every item is `unmet` and the tier is `null`. To regenerate
-the record (exit 3 is expected while items are unmet):
+pinned in [`.github/klt-version`](.github/klt-version). The committed record
+grades 11 T1 items: item 10 (repo hygiene) `met`, item 6 (statistical claims
+carry Monte Carlo evidence) `not_applicable`, and the remaining 9 `unmet`; the
+tier is `null`. To regenerate the record (exit 3 is expected while items are
+unmet):
 
 ```
 uvx --from "klayout-tools==$(cat .github/klt-version)" klt signoff \
@@ -105,14 +116,22 @@ the envelope regenerated in the same PR (see Reproduce).
 
 ## Reproduce
 
-Nothing is measured here; the only results today are the harness checks and
-the graded T1 record. To reproduce them:
+Nothing is measured here; today's results are the harness checks, the interim
+gate-level netlist and the graded T1 record. To reproduce them:
 
 ```
 scripts/setup-env.sh          # pinned cocotb venv (.venv); installs nothing globally
 scripts/check.sh lint         # stamped-file hashes, record lint, fixture test, RTL lint (needs Verilator)
 scripts/check.sh all          # lint, then the cocotb smoke
 ```
+
+The netlist's intended gate is `synth/regen.sh --check`, which regenerates
+`synth/soc_top_synth.v` and fails if it differs byte-for-byte; it needs `klt`,
+`yosys` and `sv2v` (the pinned v0.0.13) on `PATH` and installs nothing
+([`synth/README.md`](synth/README.md)). **As of 2026-11-14 that gate does not
+run on any installable `klt`**, including the version pinned in
+`.github/klt-version`, so the netlist's byte-for-byte reproducibility is
+presently undemonstrable; see issue #54.
 
 Regenerate the verdict of record and the item 10 attestation with the pinned
 `klt` (see T1 evidence above for the record command):
@@ -135,9 +154,14 @@ results land.
 ```
 spec/          ratified spec + decision records
 rtl/           PDK-specific RTL; stamped copies from the origin under rtl/common/
+firmware/      boot ROM source + the built hex image synth/boot_rom_const.v comes from
 verification/  cocotb testbenches (stamped from the origin) + run records
+synth/         klt synthesize request + the generated gate-level netlist
 layout/        GDS + DRC/LVS reports + STA reports (klayout-tools driven)
 measurements/  silicon characterization (empty until tape-out)
+manifests/     block manifest, graded T1 record, item 10 inventory + envelope
+scripts/       environment setup and the check entry point (scripts/check.sh)
+docs/          operational notes (docs/environment.md)
 ```
 
 ## License
