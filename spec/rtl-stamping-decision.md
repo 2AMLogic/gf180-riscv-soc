@@ -40,6 +40,17 @@ make either skip a failure. The origin's alternate-fabric elaboration
 (`ISRAM_1RW=1`) is dropped for now. Until part c lands, `soc_fabric`/`soc_top`
 are therefore **not lint-checked here**; part c should set `LINT_REQUIRE_SRAM=1` in CI.
 
+**Superseded** (2026-11, #51 / PR #52): part c's lint prescription landed.
+`verification/tools/lint_rtl.sh` now lints `soc_fabric.sv` unconditionally — the
+`soc_sram_d`-presence guard and the `LINT_REQUIRE_SRAM` knob were both removed,
+which is stronger than the `LINT_REQUIRE_SRAM=1` prescribed above, and that knob
+name no longer refers to anything in the tree. The script also lints the tops at
+the gf180 target configuration `ISRAM_1RW=1` (`lint_rtl.sh:35` and its header,
+lines 9-11; `rtl/README.md:19-20` agrees), so the "alternate-fabric elaboration
+(`ISRAM_1RW=1`) is dropped for now" note above no longer holds either.
+`LINT_REQUIRE_CORE` is unchanged and still live (`lint_rtl.sh:18`, `:41`). The
+`PIN_SV2V` paragraph below is unaffected by this change and still accurate.
+
 `scripts/setup-env.sh` gains `PIN_SV2V="v0.0.13"` (the origin's pin); `--check`
 did not test for sv2v when this record was written. **Superseded**: `--check`
 now runs `check_sv2v` (compares `sv2v --version` to `PIN_SV2V`), so all five
