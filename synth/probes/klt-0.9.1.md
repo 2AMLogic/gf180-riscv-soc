@@ -36,8 +36,8 @@ Captured from the same shell as the run.
 |---|---|---|
 | `klt` **used by this run** | `0.9.1` | isolated, via `uvx --from "klayout-tools==0.9.1"`; newest published release |
 | `klt` on this host's `PATH` | `0.9.2.dev1025+ga90545db9ea6` | **not used** — a bare `klt` here probes a newer unpublished build |
-| `yosys` | `Yosys 0.67+post (git sha1 b8e7da6f40ae8f552c116bf6c359b07c6533e159, Release, GNU /usr/bin/c++ 13.3.0)` | `/home/ubuntu/.local/bin/yosys`; on `PATH`, **never invoked** (see below) |
-| `sv2v` | `sv2v v0.0.13` | `/home/ubuntu/.local/bin/sv2v`; the pin named in `synth/regen.sh`'s header; on `PATH`, **never invoked** |
+| `yosys` | `Yosys 0.67+post (git sha1 b8e7da6f40ae8f552c116bf6c359b07c6533e159, Release, GNU /usr/bin/c++ 13.3.0)` | `/home/ubuntu/.local/bin/yosys`; on `PATH`, **not invoked by this `klt` run** (see below) |
+| `sv2v` | `sv2v v0.0.13` | `/home/ubuntu/.local/bin/sv2v`; the pin named in `synth/regen.sh`'s header; on `PATH`, **not invoked by this `klt` run**; invoked earlier by `scripts/convert-cve2.sh` to produce `build/cve2/cve2_top.v` |
 | `uvx` | `uvx 0.13.5 (x86_64-unknown-linux-gnu)` | |
 | host | `Linux 7.0.0-1014-aws x86_64` | fleet worker |
 
@@ -107,7 +107,9 @@ are therefore required to reach the macro rejection — the macro declaration is
 ## Sources
 
 `build/` is gitignored and absent on a fresh checkout, so it was populated
-exactly as `synth/regen.sh` does (lines 27-36) before the definitive run:
+exactly as `synth/regen.sh` does — the LEF fetch + hash-check
+(`synth/regen.sh:32-38`) and the CVE2 fetch (`synth/regen.sh:40`) — before the
+definitive run:
 
 - `build/macro/sram_256x32_array.lef` — fetched from
   `2AMLogic/gf180-sram` @ `d0bacc0fceb6e9400e54e3efe15ec1630711faa9`,
@@ -131,7 +133,7 @@ message, same exit status `1`. Nothing under `synth/`, `rtl/`,
 measurements describe the same thing from two environments.
 
 What this record adds over #54's table is the complete environment — the exact
-command, all three tool versions from the run's own shell, the exit status, the
+command, all three tool versions from the run's own shell, the
 source provenance hashes, and the validation ordering above — so a later reader
 can re-run it rather than trust a comment.
 
@@ -175,7 +177,7 @@ From a worktree (the main checkout refuses writes into `build/`):
 
 ```sh
 scripts/fetch-cve2.sh && scripts/convert-cve2.sh
-# build/macro/sram_256x32_array.lef: fetch + hash-check per synth/regen.sh:20-34
+# build/macro/sram_256x32_array.lef: fetch + hash-check per synth/regen.sh:32-38
 uvx --from "klayout-tools==0.9.1" klt synthesize --pdk gf180mcuD \
     synth/soc_top.request.json --format json; echo "exit=$?"
 ```
