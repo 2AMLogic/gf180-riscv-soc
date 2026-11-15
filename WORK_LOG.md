@@ -5,6 +5,12 @@ triage role. Newest first.
 
 ### 2026-11-15
 
+- **PR #94**: fix: add lint-rtl-tests entry to item-10 inventory and correct its mirror claim
+- **PR #91**: test: verify check_stamped.py detects stamped-file drift
+- **PR #84**: test: assert lint_rtl.sh fails on an empty RTL tree
+- **Issue #93** (closed): item-10 inventory does not mirror verification.yml: test_lint_rtl.py has no check entry
+- **Issue #88** (closed): No committed test for check_stamped.py's drift detection
+- **Issue #79** (closed): No committed regression test for lint_rtl.sh's empty-tree failure
 - **PR #90**: docs: supersede the stale LINT_REQUIRE_CORE spec claim; name PIN_SV2V in setup-env.sh header
 - **PR #86**: docs: refresh ROADMAP anchor, empty Now, and stale tracker enumerations
 - **PR #76**: ci: lint soc_top.sv on every run — fetch the CVE2 core in CI and drop the LINT_REQUIRE_CORE skip

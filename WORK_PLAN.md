@@ -43,20 +43,19 @@ _None._
 
 Issues currently being built (`loom:building`).
 
-- **#79**: No committed regression test for lint_rtl.sh's empty-tree failure
-- **#88**: No committed test for check_stamped.py's drift detection
+_None._
 
 ## PRs Awaiting Review
 
 PRs waiting on Judge (`loom:review-requested`).
 
-- **#91**: test: verify check_stamped.py detects stamped-file drift
+_None._
 
 ## Approved (Awaiting Merge)
 
 PRs that passed review and are queued for Champion auto-merge (`loom:pr`).
 
-- **#84**: test: assert lint_rtl.sh fails on an empty RTL tree
+_None._
 
 ## Proposed
 
@@ -65,8 +64,6 @@ Issues carrying `loom:curated`.
 - **#4**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
 - **#34**: T1 item 1 (c/4): gf180 soc_sram wrapper and klt synthesize to a gate-level netlist *(curated)*
 - **#43**: Decide how the core's clock-gate latch reaches the gf180 library *(curated)*
-- **#79**: No committed regression test for lint_rtl.sh's empty-tree failure *(curated)*
-- **#88**: No committed test for check_stamped.py's drift detection *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -84,10 +81,10 @@ _None._
 | Very important | 1 |
 | Important | 4 |
 | Ready (`loom:issue`) | 0 |
-| In Progress (`loom:building`) | 2 |
-| PRs awaiting review | 1 |
-| Approved PRs awaiting merge | 1 |
-| Curated | 5 |
+| In Progress (`loom:building`) | 0 |
+| PRs awaiting review | 0 |
+| Approved PRs awaiting merge | 0 |
+| Curated | 3 |
 | Architect / Hermit proposals | 0 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->
