@@ -21,6 +21,7 @@ lint() {
     "$PY" -I verification/tools/lint_records.py
     "$PY" -I verification/tools/tests/test_lint_records.py
     "$PY" -I verification/tools/tests/test_lint_rtl.py
+    "$PY" -I verification/tools/tests/test_check_stamped.py
     verification/tools/lint_rtl.sh
 }
 
