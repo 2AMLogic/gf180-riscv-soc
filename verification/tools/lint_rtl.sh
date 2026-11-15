@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# RTL lint over rtl/: passes as a no-op while the tree has no .v/.sv files.
+# RTL lint over rtl/: lints every .v/.sv source it finds; fails if none exist
+# (an empty lint set is a broken checkout, not a pass).
 # Verilator --lint-only (handles SystemVerilog).
 #
 # Local gf180 variant of the origin's verification/tools/lint_rtl.sh (see
@@ -20,7 +21,7 @@ set -euo pipefail
 cd "$(dirname "$0")/../.."
 CORE="${CVE2_BUILD:-build/cve2}/cve2_top.v"
 mapfile -t files < <(find rtl \( -name '*.v' -o -name '*.sv' \) -type f | sort)
-if [[ ${#files[@]} -eq 0 ]]; then echo "rtl lint: ok (no RTL files yet)"; exit 0; fi
+if [[ ${#files[@]} -eq 0 ]]; then echo "rtl lint: FAIL (no .v/.sv files under rtl/)" >&2; exit 1; fi
 command -v verilator >/dev/null || { echo "rtl lint: verilator not on PATH" >&2; exit 1; }
 
 args=(--lint-only -Wno-MULTITOP "-GISRAM_1RW=1'b1" -GISRAM_AW=10 -GDSRAM_AW=10)
