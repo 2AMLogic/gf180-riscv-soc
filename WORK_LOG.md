@@ -5,6 +5,12 @@ triage role. Newest first.
 
 ### 2026-11-15
 
+- **PR #90**: docs: supersede the stale LINT_REQUIRE_CORE spec claim; name PIN_SV2V in setup-env.sh header
+- **PR #86**: docs: refresh ROADMAP anchor, empty Now, and stale tracker enumerations
+- **PR #76**: ci: lint soc_top.sv on every run — fetch the CVE2 core in CI and drop the LINT_REQUIRE_CORE skip
+- **Issue #87** (closed): Two statements go stale when #76 lands: the spec record's LINT_REQUIRE_CORE line and setup-env.sh's "CI parses PIN_COCOTB" header
+- **Issue #77** (closed): Refresh docs/ROADMAP.md: four merges landed after its deac81b anchor, one inverting Now item 2
+- **Issue #65** (closed): RTL lint never checks rtl/common/soc_top.sv: nothing sets LINT_REQUIRE_CORE and its skip is the only arm CI takes
 - **PR #85**: docs: warn readers that WORK_PLAN priority sections ignore hold labels
 - **PR #82**: docs: record the dropped origin RISC-V GCC pin and narrow the pins source-of-truth claim
 - **PR #75**: docs: append Superseded note to rtl-stamping-decision Divergence section
