@@ -4,8 +4,10 @@
 gf180mcu open PDK and earns its T1 evidence with `klt`; this file says where
 that stands and what comes next.
 
-**Status as of 2026-11-14, `main` @ `deac81b`.** Where this file and the
-verdict of record (`manifests/gf180-riscv-soc.signoff.json`) disagree, the
+**Status as of 2026-11-15, `main` @ `a50ca40`.** `## Now` and the dispatchable
+list below are as of this anchor, not live: the tracker (open issues and PRs)
+is the live set, and this file is refreshed on each pass. Where this file and
+the verdict of record (`manifests/gf180-riscv-soc.signoff.json`) disagree, the
 record wins.
 
 ## Where it stands
@@ -62,21 +64,21 @@ Done and in the tree:
   `uvx` and gets the known rejection — macro validation fails before synthesis
   starts, exit 1, byte-identical to the message #54 records — with the pin and
   the committed netlist unchanged. The record decides nothing; how the gate is
-  restored stays with #54, and #68 tracks three wrong citations inside the
-  record itself.
+  restored stays with #54.
+- README status brought in line with the record: the status line, T1 paragraph
+  and repo layout match the tree, with `manifests/item10.attest.json` and the
+  verdict of record regenerated in the same PR (#58, merged as #69).
+- Documentation indexes completed: `spec/README.md` lists
+  `rtl-stamping-decision.md` and `stamped-harness-decision.md`, and
+  `verification/README.md` no longer says "Empty until the first work lands
+  here" (#59, merged as #66).
 
 ## Now
 
-Can start today; none depends on the macro views.
-
-1. **Bring the README status in line with the record.** It still says
-   "Nothing is designed yet" and that every T1 item is `unmet`. Done when the
-   status line, T1 paragraph and repo layout match the tree, and `manifests/item10.attest.json` plus the verdict of record are
-   regenerated in the same PR so `signoff.yml` passes. #58.
-2. **Complete the documentation indexes.** Done when `spec/README.md` lists
-   `rtl-stamping-decision.md` and `stamped-harness-decision.md`, and
-   `verification/README.md` no longer says "Empty until the first work lands
-   here". #59.
+Nothing is startable at this anchor. The one open, unclaimed item — #4, the
+T1 gap tracking issue — is curated but awaits human approval (`loom:issue`)
+before a builder can take it; every other open, unblocked item is already
+`loom:building` behind a PR (#65 → PR #76, #79 → PR #84, #80 → PR #85).
 
 ## Next
 
@@ -141,20 +143,18 @@ Each is unblocked by the named item.
   — no way to declare a macro by blackbox alone, so a design whose macro has no
   LEF yet cannot be synthesized at all. That one is open, and the gate waits on
   it.
-- **Housekeeping.** PR #38 (generated `WORK_PLAN.md`/`WORK_LOG.md` update) is
-  open and awaiting re-review (`loom:review-requested`); its merge conflict has
-  since been resolved and it is mergeable again, so both files lag the tracker
-  only until it lands.
+- **Housekeeping.** PR #38 (generated `WORK_PLAN.md`/`WORK_LOG.md` update) was
+  closed unmerged as superseded — its net content delta against `main` was
+  zero — so neither file ever lagged pending a merge. Both have since been
+  refreshed by merged PRs #78 and #83.
 
 What is blocked is the **design chain**: #43 and the T1 items behind it (#20,
-#22-#27, #29, #30, #34, #35) all wait on the macro views. The rest of the
-tracker is dispatchable today — small, PDK-independent repo and tooling work:
-the two Now items (#58, #59), the `regen.sh`, lint and env follow-ups
-(#53, #61, #63, #65), the decision-record note #55, the citation fixes in the
-new probe record #68, the two hermit items (#70: no `PIN_RISCV_GCC` declared;
-#71: stale analog ignore rules), and the T1 tracking issue #4. Two open items
-are nobody's to dispatch: #54 needs an operator ruling, and #50 is a Champion
-digest.
+#22-#27, #29, #30, #34, #35) all wait on the macro views. Everything else open
+falls into one of three buckets at this anchor. Dispatchable today: nothing —
+the only open, unclaimed item is #4, the T1 tracking issue, and it is curated
+but still awaiting human approval. Open but `loom:building` behind a PR:
+#65 (PR #76), #79 (PR #84), #80 (PR #85). Nobody's to dispatch: #54 needs an
+operator ruling, and #50 is a Champion digest.
 
 ## Not planned
 
