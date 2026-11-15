@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Local verification gate: the same checks as .github/workflows/verification.yml.
 #
-#   scripts/check.sh lint   stamped-file hashes, record lint, fixture test, RTL lint
+#   scripts/check.sh lint   stamped-file hashes, record lint, fixture tests, RTL lint
 #   scripts/check.sh all    lint, then the cocotb smoke
 #
 # Behind `pnpm check:ci|check:all|test|lint`. A missing tool fails the gate; it
@@ -20,6 +20,7 @@ lint() {
     "$PY" -I verification/tools/check_stamped.py
     "$PY" -I verification/tools/lint_records.py
     "$PY" -I verification/tools/tests/test_lint_records.py
+    "$PY" -I verification/tools/tests/test_check_stamped.py
     verification/tools/lint_rtl.sh
 }
 

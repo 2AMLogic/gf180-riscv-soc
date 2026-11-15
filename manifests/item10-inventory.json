@@ -35,6 +35,14 @@
       ]
     },
     {
+      "name": "check-stamped-tests",
+      "argv": [
+        "python3",
+        "-I",
+        "verification/tools/tests/test_check_stamped.py"
+      ]
+    },
+    {
       "name": "lint-rtl",
       "argv": [
         "verification/tools/lint_rtl.sh"

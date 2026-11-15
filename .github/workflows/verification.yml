@@ -41,6 +41,7 @@ jobs:
         run: |
           python3 -I verification/tools/lint_records.py
           python3 -I verification/tools/tests/test_lint_records.py
+          python3 -I verification/tools/tests/test_check_stamped.py
       - name: Fetch and convert the CVE2 core
         run: |
           scripts/fetch-cve2.sh

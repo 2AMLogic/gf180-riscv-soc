@@ -3,14 +3,14 @@
   "kind": "generic",
   "status": "pass",
   "t1_item": 10,
-  "summary": "T1 item 10 (Repo hygiene): 8/8 attestation checks passed (klt signoff --attest)",
+  "summary": "T1 item 10 (Repo hygiene): 9/9 attestation checks passed (klt signoff --attest)",
   "source": "manifests/item10-inventory.json",
   "attestation": {
     "producer": "klt signoff --attest",
     "inventory_schema_version": 1,
     "hash_algorithm": "sha256-raw-bytes",
-    "check_count": 8,
-    "passed_count": 8,
+    "check_count": 9,
+    "passed_count": 9,
     "checks": [
       {
         "check": "present",
@@ -24,7 +24,7 @@
         "role": "hygiene",
         "path": ".github/workflows/verification.yml",
         "passed": true,
-        "content_hash": "sha256:cf5c605f7933bb8a15623faac646ad41c8cfe71c8a547ea8e25e9158cc337a00"
+        "content_hash": "sha256:19cbd3cdcc037bdd2488f1009b285a37186e4ec0ff252cb7808c83713a4a077e"
       },
       {
         "check": "present",
@@ -82,6 +82,19 @@
       {
         "check": "command",
         "role": "audit",
+        "name": "check-stamped-tests",
+        "argv": [
+          "python3",
+          "-I",
+          "verification/tools/tests/test_check_stamped.py"
+        ],
+        "cwd": ".",
+        "exit_status": 0,
+        "passed": true
+      },
+      {
+        "check": "command",
+        "role": "audit",
         "name": "lint-rtl",
         "argv": [
           "verification/tools/lint_rtl.sh"
@@ -103,7 +116,7 @@
         "path": "manifests/item10-inventory.json",
         "scope": "repo"
       },
-      "content_hash": "sha256:c9494341933a622d6bf63f63043d7949650369964917f958fa20e15073a4665a"
+      "content_hash": "sha256:141ba6ab6ded1770e4569266ba3e724437107f5e51c1b568e99ed3421c9e9a44"
     }
   }
 }
