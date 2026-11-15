@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# RTL lint over rtl/: passes as a no-op while the tree has no .v/.sv files.
+# RTL lint over rtl/: lints every .v/.sv source it finds; fails if none exist
+# (an empty lint set is a broken checkout, not a pass).
 # Verilator --lint-only (handles SystemVerilog).
 #
 # Local gf180 variant of the origin's verification/tools/lint_rtl.sh (see
@@ -20,17 +21,8 @@ set -euo pipefail
 cd "$(dirname "$0")/../.."
 CORE="${CVE2_BUILD:-build/cve2}/cve2_top.v"
 mapfile -t files < <(find rtl \( -name '*.v' -o -name '*.sv' \) -type f | sort)
-if [[ ${#files[@]} -eq 0 ]]; then echo "rtl lint: ok (no RTL files yet)"; exit 0; fi
+if [[ ${#files[@]} -eq 0 ]]; then echo "rtl lint: FAIL (no .v/.sv files under rtl/)" >&2; exit 1; fi
 command -v verilator >/dev/null || { echo "rtl lint: verilator not on PATH" >&2; exit 1; }
-
-skip() {  # drop the named basenames from files[]
-    local kept=() f b
-    for f in "${files[@]}"; do
-        for b in "$@"; do [[ "$f" == */"$b" ]] && continue 2; done
-        kept+=("$f")
-    done
-    files=("${kept[@]}")
-}
 
 args=(--lint-only -Wno-MULTITOP "-GISRAM_1RW=1'b1" -GISRAM_AW=10 -GDSRAM_AW=10)
 notes=""
@@ -42,7 +34,7 @@ elif [[ "${LINT_REQUIRE_CORE:-0}" == 1 ]]; then
     echo "rtl lint: $CORE missing; run scripts/fetch-cve2.sh && scripts/convert-cve2.sh" >&2; exit 1
 else
     echo "rtl lint: note: $CORE missing; skipping soc_top.sv (needs the converted core)"
-    skip soc_top.sv
+    mapfile -t files < <(printf '%s\n' "${files[@]}" | grep -v '/soc_top\.sv$')
 fi
 # several independent tops (rst_sync, soc_fabric, ...) besides soc_top
 out="$(mktemp)"; trap 'rm -f "$out"' EXIT
