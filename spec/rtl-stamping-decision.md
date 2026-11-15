@@ -60,6 +60,17 @@ rather than being reversed: `synth/regen.sh` now requires `sv2v` on `PATH` and
 compares the netlist it produces byte-for-byte, which it did not do when the
 pin landed unchecked.
 
+**Superseded** (2026-11, #65 / PR #76): the `**Superseded** (2026-11, #51 /
+PR #52)` note's claim that "`LINT_REQUIRE_CORE` is unchanged and still live
+(`lint_rtl.sh:18`, `:41`)" no longer holds — #65 / PR #76 deleted the knob and
+the `soc_top.sv` skip it gated outright. `lint_rtl.sh` (now 42 lines, with no
+`LINT_REQUIRE_*` reference anywhere in it) lints every `.v`/`.sv` source under
+`rtl/`, and a missing converted core is a hard failure (`lint_rtl.sh:29-31`
+exits 1), so a passing lint always includes `soc_top.sv`. The CI `lint` job
+fetches and converts the core in-job (`verification.yml`, lint-job step "Fetch
+and convert the CVE2 core"), making lint coverage 9 of 9 tracked RTL sources.
+Nothing in this record's original text is reopened by that change.
+
 ## Evidence
 
 `scripts/fetch-cve2.sh` verified all 32 files and is idempotent (run twice).

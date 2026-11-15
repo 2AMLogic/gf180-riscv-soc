@@ -10,8 +10,8 @@
 # RISC-V GCC pin (PIN_RISCV_GCC, cited by stamped firmware/boot/build.sh) is
 # deliberately not here — boot-ROM regeneration is origin-only, so that
 # pointer is unresolved by decision (spec/stamped-harness-decision.md).
-# docs/environment.md quotes these pins, and CI parses PIN_COCOTB from this
-# file. It never installs or fetches anything: it only checks.
+# docs/environment.md quotes these pins, and CI parses PIN_COCOTB and PIN_SV2V
+# from this file. It never installs or fetches anything: it only checks.
 set -euo pipefail
 
 # ---- pins -----------------------------------------------------------------
