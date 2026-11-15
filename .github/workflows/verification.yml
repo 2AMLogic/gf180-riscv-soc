@@ -37,10 +37,11 @@ jobs:
           unzip -q -o /tmp/sv2v.zip -d /tmp/sv2v
           sudo install -m 0755 /tmp/sv2v/sv2v-Linux/sv2v /usr/local/bin/sv2v
           sv2v --version
-      - name: Record linter and fixture test
+      - name: Record linter and fixture tests
         run: |
           python3 -I verification/tools/lint_records.py
           python3 -I verification/tools/tests/test_lint_records.py
+          python3 -I verification/tools/tests/test_lint_rtl.py
           python3 -I verification/tools/tests/test_check_stamped.py
       - name: Fetch and convert the CVE2 core
         run: |

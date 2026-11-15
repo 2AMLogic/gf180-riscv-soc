@@ -1,7 +1,7 @@
 # verification
 
 The cocotb + Icarus smoke harness, the record linter with its fixtures, and
-the two local check scripts. Nine of the thirteen files here are stamped from
+the two local check scripts. Nine of the fourteen files here are stamped from
 `sky130-riscv-soc` @ `0bd1c15` and must not be edited in this repo — fix them
 at the origin, or record the divergence
 ([`../spec/stamped-harness-decision.md`](../spec/stamped-harness-decision.md)).
@@ -23,6 +23,7 @@ The stamped set and its hashes are pinned in
 | `tools/check_stamped.py` | local |
 | `tools/tests/test_check_stamped.py` | local |
 | `tools/lint_rtl.sh` | local — de-stamped, see [`../spec/rtl-stamping-decision.md`](../spec/rtl-stamping-decision.md) § Divergence |
+| `tools/tests/test_lint_rtl.py` | local |
 | `README.md` | local |
 
 ## Runner
@@ -30,6 +31,7 @@ The stamped set and its hashes are pinned in
     make -C verification smoke                       # needs cocotb, iverilog
     python3 -I verification/tools/lint_records.py
     python3 -I verification/tools/tests/test_lint_records.py
+    python3 -I verification/tools/tests/test_lint_rtl.py
     python3 -I verification/tools/tests/test_check_stamped.py
     verification/tools/lint_rtl.sh
 
