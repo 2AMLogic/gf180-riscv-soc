@@ -5,6 +5,12 @@ triage role. Newest first.
 
 ### 2026-11-15
 
+- **PR #85**: docs: warn readers that WORK_PLAN priority sections ignore hold labels
+- **PR #82**: docs: record the dropped origin RISC-V GCC pin and narrow the pins source-of-truth claim
+- **PR #75**: docs: append Superseded note to rtl-stamping-decision Divergence section
+- **Issue #80** (closed): WORK_PLAN's priority sections present loom:blocked / loom:operator issues as the work to take first
+- **Issue #70** (closed): scripts/setup-env.sh declares no PIN_RISCV_GCC, but stamped firmware/boot/build.sh delegates its toolchain pin to it
+- **Issue #55** (closed): Append a superseded-by note to spec/rtl-stamping-decision.md's Divergence section
 - **PR #81**: docs: correct regen.sh line citations in klt-0.9.1 probe record
 - **PR #73**: fix: fail RTL lint on an empty RTL tree instead of reporting ok
 - **PR #69**: docs: state stamped RTL and interim netlist in the README status
