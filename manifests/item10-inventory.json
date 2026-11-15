@@ -2,7 +2,7 @@
   "schema_version": 1,
   "kind": "t1-attestation-inventory",
   "t1_item": 10,
-  "description": "README, LICENSE and CI exist, and the PDK-free CI gates still pass. The checks mirror .github/workflows/verification.yml; lint_rtl.sh needs Verilator and is local-only.",
+  "description": "README, LICENSE and CI exist, and the PDK-free CI gates still pass. The checks mirror the PDK-free commands of .github/workflows/verification.yml's stamped and lint jobs; lint_rtl.sh needs Verilator and is local-only, and the cocotb smoke job needs cocotb and iverilog and is not attested.",
   "hygiene": [
     "README.md",
     "LICENSE",
@@ -40,6 +40,14 @@
         "python3",
         "-I",
         "verification/tools/tests/test_check_stamped.py"
+      ]
+    },
+    {
+      "name": "lint-rtl-tests",
+      "argv": [
+        "python3",
+        "-I",
+        "verification/tools/tests/test_lint_rtl.py"
       ]
     },
     {

@@ -3,14 +3,14 @@
   "kind": "generic",
   "status": "pass",
   "t1_item": 10,
-  "summary": "T1 item 10 (Repo hygiene): 9/9 attestation checks passed (klt signoff --attest)",
+  "summary": "T1 item 10 (Repo hygiene): 10/10 attestation checks passed (klt signoff --attest)",
   "source": "manifests/item10-inventory.json",
   "attestation": {
     "producer": "klt signoff --attest",
     "inventory_schema_version": 1,
     "hash_algorithm": "sha256-raw-bytes",
-    "check_count": 9,
-    "passed_count": 9,
+    "check_count": 10,
+    "passed_count": 10,
     "checks": [
       {
         "check": "present",
@@ -95,6 +95,19 @@
       {
         "check": "command",
         "role": "audit",
+        "name": "lint-rtl-tests",
+        "argv": [
+          "python3",
+          "-I",
+          "verification/tools/tests/test_lint_rtl.py"
+        ],
+        "cwd": ".",
+        "exit_status": 0,
+        "passed": true
+      },
+      {
+        "check": "command",
+        "role": "audit",
         "name": "lint-rtl",
         "argv": [
           "verification/tools/lint_rtl.sh"
@@ -116,7 +129,7 @@
         "path": "manifests/item10-inventory.json",
         "scope": "repo"
       },
-      "content_hash": "sha256:141ba6ab6ded1770e4569266ba3e724437107f5e51c1b568e99ed3421c9e9a44"
+      "content_hash": "sha256:00d9bd3071c486831de836c3c35e740b96c3d1c28a3c918eb494e826d75e2d11"
     }
   }
 }
