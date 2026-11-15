@@ -13,10 +13,10 @@
 #
 # rtl/common/soc_top.sv instantiates cve2_top, which is generated, not checked
 # in (scripts/fetch-cve2.sh then scripts/convert-cve2.sh ->
-# build/cve2/cve2_top.v). When that file exists it is linted with the top;
-# warnings in that generated file (sv2v output we never edit) are ignored, any
-# warning or error located in rtl/ fails. When it is absent soc_top.sv is
-# skipped with a notice, or the script fails if LINT_REQUIRE_CORE=1.
+# build/cve2/cve2_top.v). The converted core is required: when it is absent
+# the script fails with those commands, so a passing lint always includes
+# soc_top.sv. Warnings in that generated file (sv2v output we never edit) are
+# ignored; any warning or error located in rtl/ fails.
 set -euo pipefail
 cd "$(dirname "$0")/../.."
 CORE="${CVE2_BUILD:-build/cve2}/cve2_top.v"
@@ -26,16 +26,12 @@ command -v verilator >/dev/null || { echo "rtl lint: verilator not on PATH" >&2;
 
 args=(--lint-only -Wno-MULTITOP "-GISRAM_1RW=1'b1" -GISRAM_AW=10 -GDSRAM_AW=10)
 notes=""
-if [[ -r "$CORE" ]]; then
-    # warnings are not fatal for the generated file; they are filtered below
-    args+=(-Wno-fatal "$CORE")
-    notes="${notes}, generated core not gated"
-elif [[ "${LINT_REQUIRE_CORE:-0}" == 1 ]]; then
+if [[ ! -r "$CORE" ]]; then
     echo "rtl lint: $CORE missing; run scripts/fetch-cve2.sh && scripts/convert-cve2.sh" >&2; exit 1
-else
-    echo "rtl lint: note: $CORE missing; skipping soc_top.sv (needs the converted core)"
-    mapfile -t files < <(printf '%s\n' "${files[@]}" | grep -v '/soc_top\.sv$')
 fi
+# warnings are not fatal for the generated file; they are filtered below
+args+=(-Wno-fatal "$CORE")
+notes="${notes}, generated core not gated"
 # several independent tops (rst_sync, soc_fabric, ...) besides soc_top
 out="$(mktemp)"; trap 'rm -f "$out"' EXIT
 if ! verilator "${args[@]}" "${files[@]}" >"$out" 2>&1; then cat "$out" >&2; exit 1; fi

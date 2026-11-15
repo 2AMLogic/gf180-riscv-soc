@@ -1,6 +1,10 @@
 name: verification
 
 # Stamped-file hash check, record lint, RTL lint and the cocotb smoke.
+# The RTL lint needs the converted CVE2 core: the lint job fetches and
+# converts it in-job (scripts/fetch-cve2.sh, scripts/convert-cve2.sh), which
+# needs iverilog as well as verilator, and sv2v from the release tagged
+# PIN_SV2V (parsed from scripts/setup-env.sh, like the smoke job's PIN_COCOTB).
 # iverilog comes from the distro and may not be the pinned version
 # (spec/stamped-harness-decision.md). No path filters.
 on:
@@ -23,13 +27,25 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-      - name: Install Verilator
-        run: sudo apt-get update && sudo apt-get install -y verilator
+      - name: Install Verilator and Icarus Verilog
+        run: sudo apt-get update && sudo apt-get install -y verilator iverilog
+      - name: Install sv2v at the pinned version
+        run: |
+          pin="$(sed -n 's/^PIN_SV2V="\([^"]*\)".*/\1/p' scripts/setup-env.sh)"
+          test -n "$pin"
+          curl -fsSL -o /tmp/sv2v.zip "https://github.com/zachjs/sv2v/releases/download/${pin}/sv2v-Linux.zip"
+          unzip -q -o /tmp/sv2v.zip -d /tmp/sv2v
+          sudo install -m 0755 /tmp/sv2v/sv2v-Linux/sv2v /usr/local/bin/sv2v
+          sv2v --version
       - name: Record linter and fixture tests
         run: |
           python3 -I verification/tools/lint_records.py
           python3 -I verification/tools/tests/test_lint_records.py
           python3 -I verification/tools/tests/test_lint_rtl.py
+      - name: Fetch and convert the CVE2 core
+        run: |
+          scripts/fetch-cve2.sh
+          scripts/convert-cve2.sh
       - name: RTL lint
         run: verification/tools/lint_rtl.sh
 
