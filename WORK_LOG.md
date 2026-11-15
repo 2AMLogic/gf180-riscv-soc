@@ -3,14 +3,26 @@
 Chronological record of merged PRs and closed issues, maintained by the Guide
 triage role. Newest first.
 
+### 2026-11-15
+
+- **PR #81**: docs: correct regen.sh line citations in klt-0.9.1 probe record
+- **PR #73**: fix: fail RTL lint on an empty RTL tree instead of reporting ok
+- **PR #69**: docs: state stamped RTL and interim netlist in the README status
+- **PR #57**: docs: roadmap as of 2026-11-13
+- **Issue #68** (closed): Correct three citations in synth/probes/klt-0.9.1.md: two wrong regen.sh line ranges, an addition #54 already records, and an unscoped "sv2v never invoked"
+- **Issue #61** (closed): Make the RTL lint fail on an empty RTL tree instead of reporting ok: the no-op guard predates the RTL
+- **Issue #58** (closed): Bring the README status in line with the tree and the signoff record
+
 ### 2026-11-14
 
+- **PR #74**: Remove dead analog sim/ and flow/ ignore rules from .gitignore
 - **PR #72**: synth: generate boot ROM constants into the untracked build tree
 - **PR #67**: docs(synth): record klt 0.9.1 rejecting the interim macro declaration
 - **PR #66**: docs: index the two stamping records and list verification's contents
 - **PR #64**: feat: check sv2v's version in setup-env.sh --check
 - **PR #56**: refactor(synth): inline the single-call run() helper in regen.sh
 - **PR #52**: chore: lint soc_fabric/soc_top unconditionally, drop LINT_REQUIRE_SRAM
+- **Issue #71** (closed): Drop the analog sim/ and flow/ ignore rules from .gitignore: neither tree has ever existed in this digital repo
 - **Issue #63** (closed): Stop tracking the generated synth/boot_rom_const.v: regen.sh rewrites it before every run, including --check
 - **Issue #62** (closed): Check PIN_SV2V in setup-env.sh --check, or stop claiming all pins match
 - **Issue #60** (closed): Probe: record what klt 0.9.1 does with the interim synthesis request
