@@ -121,7 +121,7 @@ gate-level netlist and the graded T1 record. To reproduce them:
 
 ```
 scripts/setup-env.sh          # pinned cocotb venv (.venv); installs nothing globally
-scripts/check.sh lint         # stamped-file hashes, record lint, fixture test, RTL lint (needs Verilator)
+scripts/check.sh lint         # stamped-file hashes, record lint, fixture test, RTL lint (needs Verilator and the converted CVE2 core: run scripts/fetch-cve2.sh && scripts/convert-cve2.sh first)
 scripts/check.sh all          # lint, then the cocotb smoke
 ```
 

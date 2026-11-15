@@ -50,9 +50,10 @@ Done and in the tree:
 - The pre-part-c SRAM lint skip is gone: `LINT_REQUIRE_SRAM` is absent from
   both `verification/tools/lint_rtl.sh` and `verification.yml`, and
   `soc_fabric.sv` is now linted unconditionally (#51, merged as #52). Coverage
-  is still 8 of 9 tracked RTL sources: `soc_top.sv` needs the generated core,
-  which no workflow builds, so a second knob (`LINT_REQUIRE_CORE`, caller-less)
-  skips it on every CI run (#65).
+  is 9 of 9 tracked RTL sources (#65): the `LINT_REQUIRE_CORE` knob is deleted
+  and `soc_top.sv` is linted on every CI run — the `lint` job fetches and
+  converts the CVE2 core before the lint, and a missing core is a hard failure
+  in `lint_rtl.sh` rather than a skip.
 - `setup-env.sh --check` checks the pinned tool versions it declares, including
   the pinned sv2v version (#62).
 - CI: `verification.yml` and `signoff.yml`; `klt` pinned at `0.8.0`.
