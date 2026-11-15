@@ -5,9 +5,13 @@
 #                                  against the pins below; exit 1 on mismatch
 #
 # Local gf180 variant of the origin's sky130-only scripts/setup-env.sh (see
-# spec/stamped-harness-decision.md). This file is the single source of truth
-# for the pins; docs/environment.md quotes it, and CI parses PIN_COCOTB from
-# it. It never installs or fetches anything: it only checks.
+# spec/stamped-harness-decision.md). This file pins the tools this repo's own
+# verification uses and is the source of truth for those only; the origin's
+# RISC-V GCC pin (PIN_RISCV_GCC, cited by stamped firmware/boot/build.sh) is
+# deliberately not here — boot-ROM regeneration is origin-only, so that
+# pointer is unresolved by decision (spec/stamped-harness-decision.md).
+# docs/environment.md quotes these pins, and CI parses PIN_COCOTB from this
+# file. It never installs or fetches anything: it only checks.
 set -euo pipefail
 
 # ---- pins -----------------------------------------------------------------

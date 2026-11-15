@@ -1,7 +1,11 @@
 # Environment pins
 
-`scripts/setup-env.sh` is the single source of truth for the pins; this note
-quotes it. `scripts/setup-env.sh --check` exits 1 when anything differs.
+`scripts/setup-env.sh` pins the tools this repo's own verification uses and is
+the source of truth for those only; this note quotes it. The origin's RISC-V
+GCC pin (`PIN_RISCV_GCC`, cited by stamped `firmware/boot/build.sh`) is
+deliberately not among them — boot-ROM regeneration is origin-only here, so
+that pointer is unresolved by decision (`spec/stamped-harness-decision.md`).
+`scripts/setup-env.sh --check` exits 1 when anything differs.
 
 | Item | Pin | Source |
 |------|-----|--------|
