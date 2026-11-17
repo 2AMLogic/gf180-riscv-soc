@@ -16,7 +16,7 @@ The fix belongs upstream in `rjwalters/loom`'s `defaults/roles/guide.md`
 
 Judge-approved PRs under a hold (`loom:blocked` or `loom:operator`) — only a human merge decision is missing.
 
-- **#96**: chore(loom): resync installed Loom to v0.19.1302
+- **#98**: chore(loom): resync installed Loom to v0.19.1305
 
 ## Very Important
 
@@ -55,7 +55,7 @@ _None._
 
 PRs that passed review and are queued for Champion auto-merge (`loom:pr`).
 
-- **#96**: chore(loom): resync installed Loom to v0.19.1302
+- **#98**: chore(loom): resync installed Loom to v0.19.1305
 
 ## Proposed
 
