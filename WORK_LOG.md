@@ -3,6 +3,10 @@
 Chronological record of merged PRs and closed issues, maintained by the Guide
 triage role. Newest first.
 
+### 2026-11-16
+
+- **PR #96**: chore(loom): resync installed Loom to v0.19.1302
+
 ### 2026-11-15
 
 - **PR #94**: fix: add lint-rtl-tests entry to item-10 inventory and correct its mirror claim
