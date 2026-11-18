@@ -24,7 +24,7 @@
         "role": "hygiene",
         "path": ".github/workflows/verification.yml",
         "passed": true,
-        "content_hash": "sha256:328b928db4e492c6dd6ad2b5889ba0a99dc7e4bb0c2e99a1d20e169f7a2f817c"
+        "content_hash": "sha256:c2f760d4c0758c10b9960354e869777e986552e665511c28afe5339a6ac47215"
       },
       {
         "check": "present",
@@ -129,7 +129,7 @@
         "path": "manifests/item10-inventory.json",
         "scope": "repo"
       },
-      "content_hash": "sha256:00d9bd3071c486831de836c3c35e740b96c3d1c28a3c918eb494e826d75e2d11"
+      "content_hash": "sha256:00d3ce6afd9a3cc478d425891580449e526627dc83e6f059a426742db7806d50"
     }
   }
 }

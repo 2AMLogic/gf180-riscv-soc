@@ -16,7 +16,7 @@
     },
     "10": {
       "file": "manifests/item10.attest.json",
-      "content_hash": "sha256:00d9bd3071c486831de836c3c35e740b96c3d1c28a3c918eb494e826d75e2d11"
+      "content_hash": "sha256:00d3ce6afd9a3cc478d425891580449e526627dc83e6f059a426742db7806d50"
     }
   }
 }

@@ -2,7 +2,7 @@
   "schema_version": 1,
   "kind": "t1-attestation-inventory",
   "t1_item": 10,
-  "description": "README, LICENSE and CI exist, and the PDK-free CI gates still pass. The checks mirror the PDK-free commands of .github/workflows/verification.yml's stamped and lint jobs; lint_rtl.sh needs Verilator and is local-only, and the cocotb smoke job needs cocotb and iverilog and is not attested.",
+  "description": "README, LICENSE and CI exist, and the PDK-free CI gates still pass. The checks are the PDK-free commands of scripts/check.sh's stamped and lint groups; lint_rtl.sh needs Verilator and is local-only, and the cocotb smoke group needs cocotb and iverilog and is not attested.",
   "hygiene": [
     "README.md",
     "LICENSE",
