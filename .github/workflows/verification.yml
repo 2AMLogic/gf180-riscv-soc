@@ -1,12 +1,12 @@
 name: verification
 
-# Stamped-file hash check, record lint, RTL lint and the cocotb smoke.
-# The RTL lint needs the converted CVE2 core: the lint job fetches and
-# converts it in-job (scripts/fetch-cve2.sh, scripts/convert-cve2.sh), which
-# needs iverilog as well as verilator, and sv2v from the release tagged
-# PIN_SV2V (parsed from scripts/setup-env.sh, like the smoke job's PIN_COCOTB).
-# iverilog comes from the distro and may not be the pinned version
-# (spec/stamped-harness-decision.md). No path filters.
+# The verification gate: the commands live once in scripts/check.sh, and each
+# job calls it. The jobs keep only CI-only setup: the apt tool installs, the
+# sv2v download from the release tagged PIN_SV2V (parsed from
+# scripts/setup-env.sh, like the smoke job's PIN_COCOTB), the pinned cocotb
+# venv, and the CVE2 fetch/convert the RTL lint needs (which also needs
+# iverilog as well as verilator). iverilog comes from the distro and may not
+# be the pinned version (spec/stamped-harness-decision.md). No path filters.
 on:
   push:
     branches: [main]
@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Stamped files match reuse.lock.json
-        run: python3 -I verification/tools/check_stamped.py
+        run: scripts/check.sh stamped
 
   lint:
     runs-on: ubuntu-24.04
@@ -37,18 +37,12 @@ jobs:
           unzip -q -o /tmp/sv2v.zip -d /tmp/sv2v
           sudo install -m 0755 /tmp/sv2v/sv2v-Linux/sv2v /usr/local/bin/sv2v
           sv2v --version
-      - name: Record linter and fixture tests
-        run: |
-          python3 -I verification/tools/lint_records.py
-          python3 -I verification/tools/tests/test_lint_records.py
-          python3 -I verification/tools/tests/test_lint_rtl.py
-          python3 -I verification/tools/tests/test_check_stamped.py
       - name: Fetch and convert the CVE2 core
         run: |
           scripts/fetch-cve2.sh
           scripts/convert-cve2.sh
-      - name: RTL lint
-        run: verification/tools/lint_rtl.sh
+      - name: Record linter, fixture tests and RTL lint
+        run: scripts/check.sh lint
 
   smoke:
     runs-on: ubuntu-24.04
@@ -63,6 +57,4 @@ jobs:
           python3 -m venv .venv
           .venv/bin/pip install "cocotb==${pin}"
       - name: cocotb smoke
-        run: |
-          . .venv/bin/activate
-          make -C verification smoke
+        run: scripts/check.sh smoke
