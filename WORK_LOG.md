@@ -5,6 +5,8 @@ triage role. Newest first.
 
 ### 2026-11-18
 
+- **PR #108**: ci: add merge_group trigger to signoff and verification workflows
+- **Issue #107** (closed): Merge queue: add the merge_group trigger to the required-check workflow(s)
 - **PR #105**: ci: single-source the verification gate in scripts/check.sh
 - **Issue #103** (closed): Single-source the verification gate: verification.yml calls scripts/check.sh
 
