@@ -3,6 +3,11 @@
 Chronological record of merged PRs and closed issues, maintained by the Guide
 triage role. Newest first.
 
+### 2026-11-18
+
+- **PR #105**: ci: single-source the verification gate in scripts/check.sh
+- **Issue #103** (closed): Single-source the verification gate: verification.yml calls scripts/check.sh
+
 ### 2026-11-17
 
 - **PR #100**: chore(loom): resync installed Loom to v0.19.1306

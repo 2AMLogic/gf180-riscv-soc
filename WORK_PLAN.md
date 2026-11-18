@@ -39,7 +39,7 @@ _None._
 
 Issues currently being built (`loom:building`).
 
-- **#103**: Single-source the verification gate: verification.yml calls scripts/check.sh
+_None._
 
 ## PRs Awaiting Review
 
@@ -60,7 +60,6 @@ Issues carrying `loom:curated`.
 - **#4**: Track the gap to T1 (klayout-tools design-evidence-tiers.md) *(curated)*
 - **#34**: T1 item 1 (c/4): gf180 soc_sram wrapper and klt synthesize to a gate-level netlist *(curated)* *(held)*
 - **#43**: Decide how the core's clock-gate latch reaches the gf180 library *(curated)* *(held)*
-- **#103**: Single-source the verification gate: verification.yml calls scripts/check.sh *(curated)*
 
 ## Proposed (Architect / Hermit)
 
@@ -78,10 +77,10 @@ _None._
 | Very important | 1 |
 | Important | 4 |
 | Ready (`loom:issue`, net of holds/building/merge-pending) | 0 |
-| In Progress (`loom:building`) | 1 |
+| In Progress (`loom:building`) | 0 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
-| Curated | 4 |
+| Curated | 3 |
 | Architect / Hermit proposals | 0 |
 | Active epics | 0 |
 <!-- guide:plan-body:end -->
