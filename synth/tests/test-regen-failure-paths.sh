@@ -128,6 +128,13 @@ run_regen
 expect_rc "generic error" 1 "$regen_rc"
 expect_stderr "generic error" "klt synthesize failed: pdk gf180mcuD timing view missing"
 
+# Some klt versions write the error JSON only to stderr.
+new_scratch
+REGEN_ENV=("KLT_STUB_STDOUT=" "KLT_STUB_STDERR=$scratch/generic-error.json" "KLT_STUB_EXIT=1")
+run_regen
+expect_rc "generic error on stderr" 1 "$regen_rc"
+expect_stderr "generic error on stderr" "regen: klt synthesize failed: pdk gf180mcuD timing view missing"
+
 # 3. Unparseable response on both streams: the raw dump must be visible on
 #    regen's stderr (regression for the `2>/dev/null >&2` redirect-order bug
 #    that discarded it).
