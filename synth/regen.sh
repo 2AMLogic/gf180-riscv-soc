@@ -59,8 +59,31 @@ fi
 # so a failed run leaves nothing untracked behind.
 mkdir -p synth/.klt
 rm -rf synth/.klt/synthesize/soc-top
-klt synthesize --pdk "$PDK" synth/soc_top.request.json --format json \
-    >synth/.klt/soc_top.response.json
+resp=synth/.klt/soc_top.response.json
+err=synth/.klt/soc_top.synthesize.err
+if ! klt synthesize --pdk "$PDK" synth/soc_top.request.json --format json >"$resp" 2>"$err"; then
+    # klt has written the error JSON to the stdout response on some versions
+    # and to stderr on others; read it from whichever carries it.
+    msg=""
+    for f in "$resp" "$err"; do
+        [[ -n "$msg" ]] || msg="$(python3 -I -c 'import json,sys; print(json.load(open(sys.argv[1]))["error"]["message"])' "$f" 2>/dev/null)" || true
+    done
+    if [[ "$msg" == *"verilog_blackbox declares module(s)"* ]]; then
+        # The committed request is the interim declaration spec/macro-views-
+        # interim-decision.md ratified; klayout-tools#4459 resolved by rejecting
+        # it, so no installable klt runs this request. Not fixable here (#54).
+        echo "regen: klt rejects the interim macro declaration: $msg" >&2
+        echo "regen: byte-for-byte netlist reproducibility is currently undemonstrable; the gate waits" >&2
+        echo "regen: on 2AMLogic/klayout-tools#5612 (blackbox-only macro declaration) - see issue #54." >&2
+    elif [[ -n "$msg" ]]; then
+        echo "regen: klt synthesize failed: $msg" >&2
+    else
+        echo "regen: klt synthesize failed" >&2
+        cat "$resp" "$err" 2>/dev/null >&2
+    fi
+    exit 1
+fi
+if [[ -s "$err" ]]; then cat "$err" >&2; fi
 cp synth/.klt/synthesize/soc-top/soc_top_synth.v "$out/soc_top_synth.v"
 
 if [[ "$mode" == "--check" ]]; then

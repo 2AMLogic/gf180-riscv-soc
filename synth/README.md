@@ -13,6 +13,16 @@ Gate-level netlist of `soc_top` against `gf180mcu_fd_sc_mcu7t5v0` with the
 Run `synth/regen.sh --check` to reproduce. It needs `klt`, `yosys` and `sv2v`
 (the pinned v0.0.13) on `PATH`; it installs nothing.
 
+**The gate currently cannot pass on any installable `klt`.** The CI pin
+(`0.8.0`) predates the request schema (`macros`, `sv_frontend` are unknown
+fields), and every release that parses it (`0.9.0`, `0.9.1`) rejects the
+interim macro declaration at request validation: the blackbox module
+`sram_256x32` does not match the macro cell `sram_256x32_array` from the LEF.
+`regen.sh` names this break when it hits it. Byte-for-byte netlist
+reproducibility is therefore currently undemonstrable, and the gate waits on a
+blackbox-only macro declaration in `klt` — `2AMLogic/klayout-tools#5612`,
+tracked here as #54.
+
 Probe record of what `klt` 0.9.1 does with this request: [`probes/klt-0.9.1.md`](probes/klt-0.9.1.md).
 
 ## What the netlist is, and is not
@@ -31,7 +41,8 @@ Probe record of what `klt` 0.9.1 does with this request: [`probes/klt-0.9.1.md`]
   `macro_instance_count` is 0 although the netlist holds 8 `sram_256x32`
   instances (4 per side); count them in `instance_counts_by_type`. Downstream
   place-and-route must not take this declaration as the macro's LEF. Tool gap:
-  `2AMLogic/klayout-tools#4459`.
+  `2AMLogic/klayout-tools#5612` (blackbox-only macro declaration; #4459 was
+  resolved by rejecting the name mismatch, closing the request itself).
 - **One cell is not a gf180 cell.** The unmodified core's `cve2_clock_gate`
   holds a latch, which `klt synthesize` never maps, so the netlist contains one
   `$_DLATCH_N_`. The request sets `structural.expected_latches` to 1 to record
