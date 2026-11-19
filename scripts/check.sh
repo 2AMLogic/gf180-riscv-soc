@@ -39,6 +39,8 @@ lint() {
     "$PY" -I verification/tools/tests/test_lint_rtl.py
     step check-stamped-tests
     "$PY" -I verification/tools/tests/test_check_stamped.py
+    step regen-failure-paths
+    synth/tests/test-regen-failure-paths.sh
     step lint-rtl
     verification/tools/lint_rtl.sh
 }
