@@ -27,7 +27,6 @@ _None._
 - **#20**: T1 item 1 (design sources): decide rows 8/8a, stamp the origin integration RTL, and synthesize the SoC to a gf180mcu gate-level netlist *(held)*
 - **#34**: T1 item 1 (c/4): gf180 soc_sram wrapper and klt synthesize to a gate-level netlist *(held)*
 - **#35**: T1 item 1 (d/4): design-source inventory and klt signoff --attest 1 *(held)*
-- **#54**: synth/regen.sh --check cannot run on any installable klt: the interim macro declaration is rejected at request validation *(held)*
 
 ## Ready
 
@@ -39,7 +38,7 @@ _None._
 
 Issues currently being built (`loom:building`).
 
-_None._
+- **#111**: No automated test exercises synth/regen.sh's klt failure branches
 
 ## PRs Awaiting Review
 
@@ -75,9 +74,9 @@ _None._
 |------|-------|
 | Operator merge-risk holds | 0 |
 | Very important | 1 |
-| Important | 4 |
+| Important | 3 |
 | Ready (`loom:issue`, net of holds/building/merge-pending) | 0 |
-| In Progress (`loom:building`) | 0 |
+| In Progress (`loom:building`) | 1 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
 | Curated | 3 |
