@@ -5,6 +5,10 @@ triage role. Newest first.
 
 ### 2026-11-19
 
+- **PR #115**: test(synth): cover klt error JSON written only to stderr
+- **PR #113**: test(synth): cover regen.sh klt failure branches with a stub-klt harness
+- **Issue #114** (closed): test(synth): regen.sh's klt error-JSON-on-stderr placement is uncovered
+- **Issue #111** (closed): No automated test exercises synth/regen.sh's klt failure branches
 - **PR #110**: feat(synth): name the reproducibility-gate break when klt rejects the interim macro declaration
 - **Issue #54** (closed): synth/regen.sh --check cannot run on any installable klt: the interim macro declaration is rejected at request validation
 
