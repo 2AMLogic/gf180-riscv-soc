@@ -8,6 +8,7 @@ Backlog Balance counts include held items. A snapshot may lag live labels until 
 docs-maintenance PR merges.
 
 <!-- guide:plan-body:start -->
+_Generated: 2026-11-19T17:47:26Z (snapshot; compare against live labels)_
 ## Operator Attention: Merge-Risk-Hold Pileup
 
 Judge-approved PRs under a hold (`loom:blocked` or `loom:operator`) — only a human merge decision is missing.
@@ -38,7 +39,7 @@ _None._
 
 Issues currently being built (`loom:building`).
 
-- **#111**: No automated test exercises synth/regen.sh's klt failure branches
+_None._
 
 ## PRs Awaiting Review
 
@@ -76,7 +77,7 @@ _None._
 | Very important | 1 |
 | Important | 3 |
 | Ready (`loom:issue`, net of holds/building/merge-pending) | 0 |
-| In Progress (`loom:building`) | 1 |
+| In Progress (`loom:building`) | 0 |
 | PRs awaiting review | 0 |
 | Approved PRs awaiting merge | 0 |
 | Curated | 3 |
