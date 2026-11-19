@@ -3,6 +3,11 @@
 Chronological record of merged PRs and closed issues, maintained by the Guide
 triage role. Newest first.
 
+### 2026-11-19
+
+- **PR #110**: feat(synth): name the reproducibility-gate break when klt rejects the interim macro declaration
+- **Issue #54** (closed): synth/regen.sh --check cannot run on any installable klt: the interim macro declaration is rejected at request validation
+
 ### 2026-11-18
 
 - **PR #108**: ci: add merge_group trigger to signoff and verification workflows
