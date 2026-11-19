@@ -79,7 +79,7 @@ if ! klt synthesize --pdk "$PDK" synth/soc_top.request.json --format json >"$res
         echo "regen: klt synthesize failed: $msg" >&2
     else
         echo "regen: klt synthesize failed" >&2
-        cat "$resp" "$err" 2>/dev/null >&2
+        cat "$resp" "$err" >&2
     fi
     exit 1
 fi

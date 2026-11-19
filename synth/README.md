@@ -20,8 +20,9 @@ interim macro declaration at request validation: the blackbox module
 `sram_256x32` does not match the macro cell `sram_256x32_array` from the LEF.
 `regen.sh` names this break when it hits it. Byte-for-byte netlist
 reproducibility is therefore currently undemonstrable, and the gate waits on a
-blackbox-only macro declaration in `klt` — `2AMLogic/klayout-tools#5612`,
-tracked here as #54.
+blackbox-only macro declaration in `klt` —
+[2AMLogic/klayout-tools#5612](https://github.com/2AMLogic/klayout-tools/issues/5612),
+tracked here as [#54](https://github.com/2AMLogic/gf180-riscv-soc/issues/54).
 
 Probe record of what `klt` 0.9.1 does with this request: [`probes/klt-0.9.1.md`](probes/klt-0.9.1.md).
 
@@ -41,7 +42,8 @@ Probe record of what `klt` 0.9.1 does with this request: [`probes/klt-0.9.1.md`]
   `macro_instance_count` is 0 although the netlist holds 8 `sram_256x32`
   instances (4 per side); count them in `instance_counts_by_type`. Downstream
   place-and-route must not take this declaration as the macro's LEF. Tool gap:
-  `2AMLogic/klayout-tools#5612` (blackbox-only macro declaration; #4459 was
+  [2AMLogic/klayout-tools#5612](https://github.com/2AMLogic/klayout-tools/issues/5612)
+  (blackbox-only macro declaration; [klayout-tools#4459](https://github.com/2AMLogic/klayout-tools/issues/4459) was
   resolved by rejecting the name mismatch, closing the request itself).
 - **One cell is not a gf180 cell.** The unmodified core's `cve2_clock_gate`
   holds a latch, which `klt synthesize` never maps, so the netlist contains one
